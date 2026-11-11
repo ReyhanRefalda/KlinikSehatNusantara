@@ -1,0 +1,288 @@
+/* Palet: biru klinik, putih, aksen hijau. Font: Figtree */
+:root {
+  --biru: #0b4f8a;
+  --biru-tua: #083762;
+  --biru-muda: #eaf3fb;
+  --hijau: #1e8f61;
+  --hijau-tua: #177350;
+  --teks: #1b2a3a;
+  --abu: #5b6b7b;
+  --merah: #b3261e;
+  --latar-gelap: #083762;
+  --tombol: #187a53;
+  --tombol-hover: #126043;
+}
+body {
+  font-family: "Figtree", system-ui, sans-serif;
+  color: var(--teks);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  color: var(--biru-tua);
+}
+a {
+  color: var(--biru);
+}
+/* header & navbar */
+.site-header {
+  background: var(--bs-body-bg);
+  border-bottom: 1px solid var(--bs-border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.navbar-brand {
+  font-weight: 700;
+  color: var(--biru-tua);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.navbar .nav-link {
+  color: var(--teks);
+  padding: 0.5rem 1rem;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--hijau);
+  font-weight: 600;
+}
+/* tombol */
+.btn-hijau {
+  background: var(--tombol);
+  color: #fff;
+  border: 0;
+}
+.btn-hijau:hover {
+  background: var(--tombol-hover);
+  color: #fff;
+}
+.btn-outline-biru {
+  border: 2px solid var(--biru);
+  color: var(--biru);
+}
+.btn-outline-biru:hover {
+  background: var(--biru);
+  color: #fff;
+}
+/* hero */
+.hero {
+  background: var(--latar-gelap);
+  color: #fff;
+  padding: 4.5rem 0;
+}
+.hero h1 {
+  color: #fff;
+  font-size: 2.6rem;
+  max-width: 18ch;
+}
+.hero .lead {
+  max-width: 55ch;
+  margin: 1rem 0 1.5rem;
+}
+.sapaan {
+  color: #9fe0c3;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.hero .btn {
+  margin: 0 0.5rem 0.5rem 0;
+}
+/* bagian umum */
+.bagian {
+  padding: 3rem 0;
+}
+.bg-muda {
+  background: var(--biru-muda);
+}
+.lead-teks {
+  color: var(--abu);
+  margin-bottom: 1.5rem;
+}
+.kartu-poli {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.kartu-poli:hover {
+  border-color: var(--hijau);
+}
+.kartu-poli ul {
+  padding-left: 1.1rem;
+}
+.untuk {
+  font-size: 0.95rem;
+  color: var(--abu);
+  margin: 0;
+}
+.tabel-jam {
+  max-width: 420px;
+}
+/* dokter */
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--biru);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.kartu-dokter {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 12px;
+  height: 100%;
+}
+.badge-poli {
+  background: var(--biru-muda);
+  color: var(--biru);
+  padding: 0.1rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+/* formulir */
+.form-lebar {
+  max-width: 760px;
+}
+.form-label {
+  font-weight: 600;
+}
+.pesan-error {
+  color: var(--merah);
+  font-size: 0.875rem;
+  min-height: 1.3em;
+}
+.is-invalid {
+  border-color: var(--merah) !important;
+  background-color: #fdf1f0;
+}
+.nomor-antrean {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--hijau);
+  text-align: center;
+}
+/* footer */
+.site-footer {
+  background: var(--latar-gelap);
+  color: #d6e4f2;
+  padding: 2.5rem 0 1rem;
+}
+.site-footer h2 {
+  color: #fff;
+}
+.site-footer a {
+  color: #d6e4f2;
+  text-decoration: none;
+}
+.site-footer a:hover {
+  color: #9fe0c3;
+  text-decoration: underline;
+}
+.copy {
+  border-top: 1px solid #2b5681;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  font-size: 0.85rem;
+}
+:focus-visible {
+  outline: 3px solid #f2b705;
+  outline-offset: 2px;
+}
+/* responsif: tablet */
+@media (max-width: 991px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  .bagian {
+    padding: 2.5rem 0;
+  }
+}
+/* responsif: smartphone */
+@media (max-width: 576px) {
+  .hero {
+    padding: 3rem 0;
+  }
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .nomor-antrean {
+    font-size: 1.9rem;
+  }
+  .kartu-dokter {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+/* cetak ringkasan pendaftaran */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #modal-ringkasan,
+  #modal-ringkasan * {
+    visibility: visible;
+  }
+  #modal-ringkasan {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .modal-footer,
+  .btn-close {
+    display: none;
+  }
+}
+
+/* ===== MODE GELAP ===== */
+.btn-tema {
+  background: none;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 20px;
+  padding: 0.25rem 0.9rem;
+  color: var(--teks);
+}
+.btn-tema:hover {
+  border-color: var(--hijau);
+  color: var(--hijau);
+}
+[data-bs-theme="dark"] {
+  --biru: #6cb4f0;
+  --biru-tua: #dcebfa;
+  --biru-muda: #16293d;
+  --hijau: #3dbe8b;
+  --teks: #e4ecf4;
+  --abu: #9fb0c1;
+  --merah: #ff8a80;
+}
+[data-bs-theme="dark"] .navbar-toggler-icon {
+  filter: invert(1);
+}
+[data-bs-theme="dark"] .is-invalid {
+  background-color: #3a1f1f;
+}
+[data-bs-theme="dark"] .btn-outline-biru:hover,
+[data-bs-theme="dark"] .avatar {
+  color: #0b1b2b;
+}
+@media print {
+  #modal-ringkasan .modal-content {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .nomor-antrean {
+    color: #000;
+  }
+}
