@@ -199,7 +199,6 @@ if (el("daftar-dokter")) {
   function tampilkanDokter(poli) {
     const daftar = poli === "Semua" ? dokter : ambilDokterByPoli(poli);
     el("daftar-dokter").innerHTML = "";
-    el("isi-tabel").innerHTML = "";
     daftar.forEach(function (d) {
       const huruf = d.nama.replace(/^(dr\.|drg\.)\s*/i, "").charAt(0).toUpperCase();
       const kolom = document.createElement("div");
@@ -208,9 +207,6 @@ if (el("daftar-dokter")) {
         '<h2 class="h6 mb-1">' + d.nama + '</h2><span class="badge-poli">Poliklinik ' + d.poliklinik + '</span>' +
         '<p class="mb-0 mt-1 small text-muted">' + d.hari + ", " + d.jam + '<br>' + d.info + '</p></div></div>';
       el("daftar-dokter").appendChild(kolom);
-      const baris = document.createElement("tr");
-      baris.innerHTML = "<td>" + d.nama + "</td><td>" + d.poliklinik + "</td><td>" + d.hari + "</td><td>" + d.jam + "</td>";
-      el("isi-tabel").appendChild(baris);
     });
     el("jumlah-dokter").textContent = "Menampilkan " + daftar.length + " dokter.";
   }
@@ -218,12 +214,7 @@ if (el("daftar-dokter")) {
   if (el("filter-poli")) {
     el("filter-poli").addEventListener("change", function () { tampilkanDokter(this.value); });
   }
-  if (el("btn-tabel") && el("wadah-tabel")) {
-    el("btn-tabel").addEventListener("click", function () {
-      const tersembunyi = el("wadah-tabel").classList.toggle("d-none");
-      this.textContent = tersembunyi ? "Tampilkan tabel jadwal" : "Sembunyikan tabel jadwal";
-    });
-  }
+
 }
 
 /* ===== FORMULIR PENDAFTARAN ===== */
