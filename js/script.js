@@ -17,69 +17,184 @@ const kodePoli = { Umum: "UMUM", Gigi: "GIGI", KIA: "KIA", Gizi: "GIZI" };
 // Nomor antrean terakhir (simulasi), akan bertambah setiap ada pendaftaran
 const antreanTerakhir = { Umum: 6, Gigi: 2, KIA: 4, Gizi: 1 };
 
-/* ===== FUNGSI UMUM ===== */
+/* ===== DAFTAR HARI LIBUR NASIONAL RESMI (Simulasi Standar Indonesia) ===== */
+const daftarLiburNasional = {
+  "01-01": "Tahun Baru Masehi",
+  "05-01": "Hari Buruh Internasional",
+  "06-01": "Hari Lahir Pancasila",
+  "08-17": "Hari Kemerdekaan Republik Indonesia",
+  "12-25": "Hari Raya Natal"
+};
+
+/* ===== FUNGSI PENGOLAHAN TANGGAL & PARSING YANG KUAT ===== */
+function el(id) { return document.getElementById(id); }
+
+function jamNol(tanggal) {
+  const d = new Date(tanggal);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+/**
+ * Parsing tanggal fleksibel: mendukung format YYYY-MM-DD, DD/MM/YYYY, DD-MM-YYYY, atau Date object.
+ * Menghindari bug konversi timezone (UTC vs waktu lokal).
+ */
+function parseTanggal(input) {
+  if (!input) return null;
+  if (input instanceof Date) {
+    return isNaN(input.getTime()) ? null : jamNol(input);
+  }
+  const teks = String(input).trim();
+  if (!teks) return null;
+
+  // Format standar HTML5: YYYY-MM-DD
+  let match = teks.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})$/);
+  if (match) {
+    const thn = parseInt(match[1], 10);
+    const bln = parseInt(match[2], 10) - 1;
+    const tgl = parseInt(match[3], 10);
+    const d = new Date(thn, bln, tgl, 0, 0, 0, 0);
+    if (d.getFullYear() === thn && d.getMonth() === bln && d.getDate() === tgl) {
+      return d;
+    }
+  }
+
+  // Format DD/MM/YYYY atau DD-MM-YYYY
+  match = teks.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})$/);
+  if (match) {
+    const tgl = parseInt(match[1], 10);
+    const bln = parseInt(match[2], 10) - 1;
+    const thn = parseInt(match[3], 10);
+    const d = new Date(thn, bln, tgl, 0, 0, 0, 0);
+    if (d.getFullYear() === thn && d.getMonth() === bln && d.getDate() === tgl) {
+      return d;
+    }
+  }
+
+  // Fallback standar
+  const d = new Date(teks + "T00:00:00");
+  return isNaN(d.getTime()) ? null : jamNol(d);
+}
+
+// Kompatibilitas dengan fungsi lama
+function bacaTanggal(teks) {
+  return parseTanggal(teks) || new Date(NaN);
+}
+
+// Mengubah Date ke format "YYYY-MM-DD"
+function ubahKeTeks(tgl) {
+  const d = parseTanggal(tgl);
+  if (!d) return "";
+  const thn = d.getFullYear();
+  const bln = String(d.getMonth() + 1).padStart(2, "0");
+  const hr = String(d.getDate()).padStart(2, "0");
+  return thn + "-" + bln + "-" + hr;
+}
+
+// Format tanggal ke Bahasa Indonesia lengkap (contoh: "17 November 2026")
+const namaBulanIndo = [
+  "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+  "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+];
+function formatTanggal(teks) {
+  const d = parseTanggal(teks);
+  if (!d) return "-";
+  return d.getDate() + " " + namaBulanIndo[d.getMonth()] + " " + d.getFullYear();
+}
+
+function hitungUsia(tglLahir) {
+  const d = parseTanggal(tglLahir);
+  if (!d) return 0;
+  const hariIni = jamNol(new Date());
+  let usia = hariIni.getFullYear() - d.getFullYear();
+  const belumUlangTahun = hariIni.getMonth() < d.getMonth() ||
+    (hariIni.getMonth() === d.getMonth() && hariIni.getDate() < d.getDate());
+  if (belumUlangTahun) usia--;
+  return usia >= 0 ? usia : 0;
+}
+
 function sapaanWaktu(jam) {
   if (jam < 11) return "Selamat pagi";
   else if (jam < 15) return "Selamat siang";
   else if (jam < 18) return "Selamat sore";
   else return "Selamat malam";
 }
-function hitungUsia(tglLahir) {
-  const hariIni = new Date();
-  let usia = hariIni.getFullYear() - tglLahir.getFullYear();
-  const belumUlangTahun = hariIni.getMonth() < tglLahir.getMonth() ||
-    (hariIni.getMonth() === tglLahir.getMonth() && hariIni.getDate() < tglLahir.getDate());
-  if (belumUlangTahun) usia--;
-  return usia;
-}
+
 function buatNomorAntrean(poli) {
-  antreanTerakhir[poli]++;
+  antreanTerakhir[poli] = (antreanTerakhir[poli] || 0) + 1;
   return kodePoli[poli] + "-" + String(antreanTerakhir[poli]).padStart(3, "0");
 }
+
 function ambilDokterByPoli(poli) {
   return dokter.filter(function (d) { return d.poliklinik === poli; });
 }
-function jamNol(tanggal) { tanggal.setHours(0, 0, 0, 0); return tanggal; } // tanggal tanpa jam
-function bacaTanggal(teks) { return new Date(teks + "T00:00:00"); }
-function formatTanggal(teks) {
-  return bacaTanggal(teks).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
-}
-function ubahKeTeks(tgl) { // Date -> "yyyy-mm-dd" (waktu lokal)
-  return tgl.getFullYear() + "-" + String(tgl.getMonth() + 1).padStart(2, "0") + "-" + String(tgl.getDate()).padStart(2, "0");
-}
-function el(id) { return document.getElementById(id); }
 
-// Kalender resmi/libur bersama diperbarui dari API per tahun. Cache hanya 24 jam.
-const zonaKlinik = "Asia/Jakarta";
-function tanggalJakarta() {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: zonaKlinik, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+/* ===== SIMULASI PENYIMPANAN DATABASE (LocalStorage) ===== */
+const DB_PENDAFTARAN_KEY = "sehat_nusantara_db_pendaftaran";
+
+function simpanPendaftaranKeDB(data) {
+  try {
+    const list = ambilSemuaPendaftaranDariDB();
+    list.unshift(data); // Simpan yang terbaru di urutan pertama
+    localStorage.setItem(DB_PENDAFTARAN_KEY, JSON.stringify(list));
+    return true;
+  } catch (err) {
+    console.warn("Gagal menyimpan ke database lokal:", err);
+    return false;
+  }
 }
+
+function ambilSemuaPendaftaranDariDB() {
+  try {
+    const raw = localStorage.getItem(DB_PENDAFTARAN_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (_) {
+    return [];
+  }
+}
+
+function ambilPendaftaranTerakhir() {
+  const list = ambilSemuaPendaftaranDariDB();
+  return list.length > 0 ? list[0] : null;
+}
+
+// Ekspos ke global window untuk debugging & verifikasi sistem
+window.dbKlinik = {
+  simpan: simpanPendaftaranKeDB,
+  ambilSemua: ambilSemuaPendaftaranDariDB,
+  ambilTerakhir: ambilPendaftaranTerakhir
+};
 
 /* ===== MODE GELAP ===== */
-// Tema disimpan di localStorage agar tetap sama saat pindah halaman
 function terapkanTema(tema) {
-  document.documentElement.setAttribute("data-bs-theme", tema); // Bootstrap 5.3 membaca atribut ini
+  document.documentElement.setAttribute("data-bs-theme", tema);
   localStorage.setItem("tema", tema);
   const tombol = el("btn-tema");
-  tombol.textContent = tema === "dark" ? "☀️ Terang" : "🌙 Gelap";
-  tombol.setAttribute("aria-pressed", tema === "dark");
+  if (tombol) {
+    tombol.textContent = tema === "dark" ? "☀️ Terang" : "🌙 Gelap";
+    tombol.setAttribute("aria-pressed", tema === "dark");
+  }
 }
-// Tema awal: pilihan tersimpan, jika belum ada ikuti pengaturan perangkat
+
+// Inisialisasi tema
 const temaTersimpan = localStorage.getItem("tema");
 const perangkatGelap = window.matchMedia("(prefers-color-scheme: dark)").matches;
 terapkanTema(temaTersimpan || (perangkatGelap ? "dark" : "light"));
-// event click: ganti tema
-el("btn-tema").addEventListener("click", function () {
-  const sekarang = document.documentElement.getAttribute("data-bs-theme");
-  terapkanTema(sekarang === "dark" ? "light" : "dark");
-});
+
+// Event listener ganti tema
+if (el("btn-tema")) {
+  el("btn-tema").addEventListener("click", function () {
+    const sekarang = document.documentElement.getAttribute("data-bs-theme");
+    terapkanTema(sekarang === "dark" ? "light" : "dark");
+  });
+}
 
 /* ===== BERANDA: sapaan otomatis ===== */
 if (el("sapaan")) {
   el("sapaan").textContent = sapaanWaktu(new Date().getHours()) + ", selamat datang di Sehat Nusantara";
 }
 
-/* ===== JADWAL DOKTER: tampil dinamis + filter ===== */
+/* ===== JADWAL DOKTER ===== */
 if (el("daftar-dokter")) {
   function tampilkanDokter(poli) {
     const daftar = poli === "Semua" ? dokter : ambilDokterByPoli(poli);
@@ -91,7 +206,7 @@ if (el("daftar-dokter")) {
       kolom.className = "col-12 col-md-6 col-lg-4";
       kolom.innerHTML = '<div class="kartu-dokter"><div class="avatar" aria-hidden="true">' + huruf + '</div><div>' +
         '<h2 class="h6 mb-1">' + d.nama + '</h2><span class="badge-poli">Poliklinik ' + d.poliklinik + '</span>' +
-        '<p class="mb-0 mt-1 small">' + d.hari + ", " + d.jam + '<br>' + d.info + '</p></div></div>';
+        '<p class="mb-0 mt-1 small text-muted">' + d.hari + ", " + d.jam + '<br>' + d.info + '</p></div></div>';
       el("daftar-dokter").appendChild(kolom);
       const baris = document.createElement("tr");
       baris.innerHTML = "<td>" + d.nama + "</td><td>" + d.poliklinik + "</td><td>" + d.hari + "</td><td>" + d.jam + "</td>";
@@ -100,77 +215,53 @@ if (el("daftar-dokter")) {
     el("jumlah-dokter").textContent = "Menampilkan " + daftar.length + " dokter.";
   }
   tampilkanDokter("Semua");
-  // event change: filter berdasarkan poliklinik
-  el("filter-poli").addEventListener("change", function () { tampilkanDokter(this.value); });
-  // event click: tampilkan / sembunyikan tabel jadwal
-  el("btn-tabel").addEventListener("click", function () {
-    const tersembunyi = el("wadah-tabel").classList.toggle("d-none");
-    this.textContent = tersembunyi ? "Tampilkan tabel jadwal" : "Sembunyikan tabel jadwal";
-  });
+  if (el("filter-poli")) {
+    el("filter-poli").addEventListener("change", function () { tampilkanDokter(this.value); });
+  }
+  if (el("btn-tabel") && el("wadah-tabel")) {
+    el("btn-tabel").addEventListener("click", function () {
+      const tersembunyi = el("wadah-tabel").classList.toggle("d-none");
+      this.textContent = tersembunyi ? "Tampilkan tabel jadwal" : "Sembunyikan tabel jadwal";
+    });
+  }
 }
 
-/* ===== PENDAFTARAN ===== */
+/* ===== FORMULIR PENDAFTARAN ===== */
 if (el("form-daftar")) {
-  const nilai = function (id) { return el(id).value.trim(); };
-  // Rentang tanggal untuk input (validasi tetap dilakukan di JavaScript)
-  const hariIni = bacaTanggal(tanggalJakarta());
-  const batasAkhir = jamNol(new Date()); batasAkhir.setDate(batasAkhir.getDate() + 14);
-  el("tglKunjungan").min = ubahKeTeks(hariIni);
-  el("tglKunjungan").max = ubahKeTeks(batasAkhir);
-  el("tglLahir").max = ubahKeTeks(hariIni);
+  const nilai = function (id) {
+    const elem = el(id);
+    return elem ? elem.value.trim() : "";
+  };
 
-  const tanggalLibur = new Map();
-  let dataLiburSiap = false;
-  let tahunDimuat = null;
-  const inputTanggal = el("tglKunjungan");
-  const pesanLibur = document.createElement("div");
-  pesanLibur.className = "pesan-libur small mt-1";
-  pesanLibur.setAttribute("role", "status");
-  inputTanggal.insertAdjacentElement("afterend", pesanLibur);
+  const hariIni = jamNol(new Date());
+  const batasAkhir = jamNol(new Date());
+  batasAkhir.setDate(batasAkhir.getDate() + 14);
 
-  async function muatHariLibur(tahun) {
-    if (tahunDimuat === tahun && dataLiburSiap) return;
-    tahunDimuat = tahun;
-    dataLiburSiap = false;
-    inputTanggal.disabled = true;
-    pesanLibur.textContent = "Memuat kalender hari libur…";
-    try {
-      const key = "libur-id-" + tahun;
-      let hasil = null;
-      try {
-        const cache = JSON.parse(localStorage.getItem(key) || "null");
-        if (cache && Date.now() - cache.disimpan < 86400000 && Array.isArray(cache.data)) hasil = cache.data;
-      } catch (_) { /* cache tidak valid; ambil data baru */ }
-      if (!hasil) {
-        const response = await fetch("https://api-hari-libur.vercel.app/api?year=" + encodeURIComponent(tahun), { cache: "no-store" });
-        if (!response.ok) throw new Error("Kalender libur tidak dapat diakses.");
-        const json = await response.json();
-        hasil = Array.isArray(json) ? json : (json.data || json.holidays);
-        if (!Array.isArray(hasil)) throw new Error("Format kalender libur tidak dikenali.");
-        localStorage.setItem(key, JSON.stringify({ disimpan: Date.now(), data: hasil }));
-      }
-      tanggalLibur.clear();
-      hasil.forEach(function (item) {
-        const tgl = item.date || item.tanggal;
-        if (tgl) tanggalLibur.set(tgl, item.name || item.nama || item.description || "Hari libur nasional/cuti bersama");
-      });
-      dataLiburSiap = true;
-      inputTanggal.disabled = false;
-      pesanLibur.textContent = "Hari Minggu, hari libur nasional, dan cuti bersama tidak dapat dipilih.";
-      if (inputTanggal.value) periksa("tglKunjungan");
-    } catch (error) {
-      pesanLibur.textContent = "Kalender hari libur gagal dimuat. Pendaftaran tanggal dinonaktifkan sementara; coba muat ulang halaman.";
-      tampilError("tglKunjungan", "Kalender hari libur belum tersedia. Coba lagi sebelum memilih tanggal.");
-    }
+  // Set batasan tanggal input
+  if (el("tglKunjungan")) {
+    el("tglKunjungan").min = ubahKeTeks(hariIni);
+    el("tglKunjungan").max = ubahKeTeks(batasAkhir);
+    el("tglKunjungan").disabled = false; // Pastikan input selalu aktif
   }
-  muatHariLibur(Number(tanggalJakarta().slice(0, 4)));
+  if (el("tglLahir")) {
+    el("tglLahir").max = ubahKeTeks(hariIni);
+  }
 
-  // Setiap fungsi mengembalikan pesan error, atau "" jika valid
+  // Tampilkan petunjuk operasional di bawah tanggal kunjungan
+  const wadahTglKunjungan = el("tglKunjungan");
+  if (wadahTglKunjungan && !document.querySelector(".info-jadwal-kunjungan")) {
+    const infoJadwal = document.createElement("small");
+    infoJadwal.className = "info-jadwal-kunjungan text-muted d-block mt-1";
+    infoJadwal.textContent = "Klinik buka Senin – Sabtu (Minggu & hari libur nasional tutup). Maksimal 14 hari ke depan.";
+    wadahTglKunjungan.parentNode.appendChild(infoJadwal);
+  }
+
+  // Validator per field
   const validator = {
     nama: function () {
       const v = nilai("nama");
       if (!v) return "Nama lengkap wajib diisi.";
-      if (!/^[A-Za-z\s]+$/.test(v)) return "Nama hanya boleh berisi huruf dan spasi.";
+      if (!/^[A-Za-z\s'.,-]+$/.test(v)) return "Nama hanya boleh berisi huruf dan karakter umum nama.";
       if (v.length < 3) return "Nama minimal 3 karakter.";
       return "";
     },
@@ -178,13 +269,16 @@ if (el("form-daftar")) {
       const v = nilai("nik");
       if (!v) return "NIK wajib diisi.";
       if (!/^\d+$/.test(v)) return "NIK hanya boleh berisi angka.";
-      if (v.length !== 16) return "NIK harus 16 digit. Yang Anda isi baru " + v.length + " digit.";
+      if (v.length !== 16) return "NIK harus tepat 16 digit (saat ini " + v.length + " digit).";
       return "";
     },
     tglLahir: function () {
       const v = nilai("tglLahir");
       if (!v) return "Tanggal lahir wajib diisi.";
-      if (bacaTanggal(v) > hariIni) return "Tanggal lahir tidak boleh di masa depan.";
+      const tgl = parseTanggal(v);
+      if (!tgl) return "Format tanggal lahir tidak valid (gunakan format YYYY-MM-DD).";
+      if (tgl > hariIni) return "Tanggal lahir tidak boleh di masa depan.";
+      if (hitungUsia(tgl) > 130) return "Tahun kelahiran tidak wajar.";
       return "";
     },
     jk: function () {
@@ -203,132 +297,222 @@ if (el("form-daftar")) {
       if (v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "Format email belum benar, contoh: nama@email.com.";
       return "";
     },
-    poli: function () { return nilai("poli") ? "" : "Pilih poliklinik."; },
+    poli: function () {
+      return nilai("poli") ? "" : "Pilih salah satu poliklinik.";
+    },
     dokter: function () {
       const v = nilai("dokter");
-      if (!v) return "Pilih dokter.";
+      if (!v) return "Pilih dokter yang bertugas.";
       const cocok = dokter.find(function (d) { return d.nama === v && d.poliklinik === nilai("poli"); });
-      return cocok ? "" : "Dokter tidak sesuai dengan poliklinik yang dipilih.";
+      return cocok ? "" : "Dokter yang dipilih tidak sesuai dengan poliklinik.";
     },
     tglKunjungan: function () {
       const v = nilai("tglKunjungan");
       if (!v) return "Tanggal kunjungan wajib diisi.";
-      if (!dataLiburSiap) return "Kalender hari libur belum tersedia. Coba lagi sebelum memilih tanggal.";
-      const tgl = bacaTanggal(v);
+      const tgl = parseTanggal(v);
+      if (!tgl) return "Format tanggal kunjungan tidak valid.";
       if (tgl < hariIni) return "Tanggal kunjungan tidak boleh sebelum hari ini.";
       if (tgl > batasAkhir) return "Tanggal kunjungan maksimal 14 hari dari hari ini.";
-      if (new Date(v + "T00:00:00Z").getUTCDay() === 0) return "Booking pada hari Minggu tidak tersedia.";
-      if (tanggalLibur.has(v)) return "Tanggal ini tidak tersedia: " + tanggalLibur.get(v) + ".";
+      if (tgl.getDay() === 0) return "Klinik tutup pada hari Minggu. Silakan pilih hari Senin s.d. Sabtu.";
+
+      // Pengecekan hari libur nasional
+      const bulanTgl = String(tgl.getMonth() + 1).padStart(2, "0") + "-" + String(tgl.getDate()).padStart(2, "0");
+      if (daftarLiburNasional[bulanTgl]) {
+        return "Klinik libur pada tanggal ini (" + daftarLiburNasional[bulanTgl] + ").";
+      }
       return "";
     },
     keluhan: function () {
       const panjang = nilai("keluhan").length;
       if (!panjang) return "Keluhan wajib diisi.";
-      if (panjang < 10) return "Keluhan minimal 10 karakter.";
+      if (panjang < 10) return "Keluhan terlalu singkat (minimal 10 karakter).";
       if (panjang > 200) return "Keluhan maksimal 200 karakter.";
       return "";
     },
-    setuju: function () { return el("setuju").checked ? "" : "Anda harus menyetujui penggunaan data."; }
+    setuju: function () {
+      return el("setuju") && el("setuju").checked ? "" : "Anda harus menyetujui penggunaan data.";
+    }
   };
 
-  // Tampilkan pesan di bawah kolom + tandai kolom yang tidak valid
   function tampilError(nama, pesan) {
-    el("err-" + nama).textContent = pesan;
+    const errBox = el("err-" + nama);
+    if (errBox) errBox.textContent = pesan;
     document.querySelectorAll('[data-field="' + nama + '"]').forEach(function (k) {
       k.classList.toggle("is-invalid", pesan !== "");
     });
   }
-  function periksa(nama) { const p = validator[nama](); tampilError(nama, p); return p === ""; }
 
-  // Validasi saat kolom ditinggalkan
+  function periksa(nama) {
+    if (!validator[nama]) return true;
+    const p = validator[nama]();
+    tampilError(nama, p);
+    return p === "";
+  }
+
+  // Validasi saat input kehilangan fokus
   Object.keys(validator).forEach(function (nama) {
     document.querySelectorAll('[data-field="' + nama + '"]').forEach(function (k) {
       k.addEventListener("blur", function () { periksa(nama); });
     });
   });
 
-  // event change: tanggal lahir -> usia otomatis
-  el("tglLahir").addEventListener("change", function () {
-    const v = nilai("tglLahir");
-    el("usia").value = (v && bacaTanggal(v) <= hariIni) ? hitungUsia(bacaTanggal(v)) + " tahun" : "-";
-    periksa("tglLahir");
-  });
+  // Otomatis hitung usia saat tanggal lahir dipilih/diubah
+  if (el("tglLahir")) {
+    const updateUsia = function () {
+      const v = nilai("tglLahir");
+      const dt = parseTanggal(v);
+      if (dt && dt <= hariIni) {
+        const u = hitungUsia(dt);
+        el("usia").value = u + " tahun";
+      } else {
+        el("usia").value = "-";
+      }
+      periksa("tglLahir");
+    };
+    el("tglLahir").addEventListener("change", updateUsia);
+    el("tglLahir").addEventListener("input", updateUsia);
+  }
 
-  // event change: poliklinik -> pilihan dokter berubah (DOM)
-  el("poli").addEventListener("change", function () {
-    const pilihanDokter = el("dokter");
-    pilihanDokter.innerHTML = "";
-    const poli = nilai("poli");
-    if (!poli) {
-      pilihanDokter.innerHTML = '<option value="">Pilih poliklinik dulu</option>';
-      pilihanDokter.disabled = true;
-    } else {
-      pilihanDokter.disabled = false;
-      pilihanDokter.innerHTML = '<option value="">-- Pilih dokter --</option>';
-      ambilDokterByPoli(poli).forEach(function (d) {
-        const opsi = document.createElement("option");
-        opsi.value = d.nama;
-        opsi.textContent = d.nama + " (" + d.hari + ", " + d.jam + ")";
-        pilihanDokter.appendChild(opsi);
-      });
-    }
-    periksa("poli");
-    tampilError("dokter", "");
-  });
-  el("dokter").addEventListener("change", function () { periksa("dokter"); });
-  inputTanggal.addEventListener("change", function () { periksa("tglKunjungan"); });
+  // Update pilihan dokter saat poliklinik dipilih
+  if (el("poli")) {
+    el("poli").addEventListener("change", function () {
+      const pilihanDokter = el("dokter");
+      if (!pilihanDokter) return;
+      pilihanDokter.innerHTML = "";
+      const poli = nilai("poli");
+      if (!poli) {
+        pilihanDokter.innerHTML = '<option value="">Pilih poliklinik dulu</option>';
+        pilihanDokter.disabled = true;
+      } else {
+        pilihanDokter.disabled = false;
+        pilihanDokter.innerHTML = '<option value="">-- Pilih dokter --</option>';
+        ambilDokterByPoli(poli).forEach(function (d) {
+          const opsi = document.createElement("option");
+          opsi.value = d.nama;
+          opsi.textContent = d.nama + " (" + d.hari + ", " + d.jam + ")";
+          pilihanDokter.appendChild(opsi);
+        });
+      }
+      periksa("poli");
+      tampilError("dokter", "");
+    });
+  }
 
-  // event input: penghitung karakter keluhan
-  el("keluhan").addEventListener("input", function () {
-    const n = this.value.length;
-    el("hitung-keluhan").textContent = n + " / 200";
-    el("hitung-keluhan").style.color = n > 200 ? "#B3261E" : "";
-  });
+  if (el("dokter")) {
+    el("dokter").addEventListener("change", function () { periksa("dokter"); });
+  }
 
-  // event submit: validasi semua kolom, proses hanya jika semua valid
+  if (el("tglKunjungan")) {
+    el("tglKunjungan").addEventListener("change", function () { periksa("tglKunjungan"); });
+    el("tglKunjungan").addEventListener("input", function () { periksa("tglKunjungan"); });
+  }
+
+  // Penghitung karakter keluhan
+  if (el("keluhan")) {
+    el("keluhan").addEventListener("input", function () {
+      const n = this.value.length;
+      if (el("hitung-keluhan")) {
+        el("hitung-keluhan").textContent = n + " / 200";
+        el("hitung-keluhan").style.color = n > 200 ? "var(--merah)" : "";
+      }
+    });
+  }
+
+  // Event submit formulir
   el("form-daftar").addEventListener("submit", function (e) {
     e.preventDefault();
     let semuaValid = true;
     let kolomPertama = null;
+
     Object.keys(validator).forEach(function (nama) {
       if (!periksa(nama)) {
         semuaValid = false;
         if (!kolomPertama) kolomPertama = document.querySelector('[data-field="' + nama + '"]');
       }
     });
-    if (!semuaValid) { kolomPertama.focus(); return; }
+
+    if (!semuaValid) {
+      if (kolomPertama) kolomPertama.focus();
+      return;
+    }
+
     tampilkanRingkasan();
   });
 
   function tampilkanRingkasan() {
     const poli = nilai("poli");
-    const jk = document.querySelector('input[name="jk"]:checked').value;
-    const baris = [
-      ["Nama lengkap", nilai("nama")], ["NIK", nilai("nik")],
-      ["Tanggal lahir", formatTanggal(nilai("tglLahir"))], ["Usia", el("usia").value],
-      ["Jenis kelamin", jk], ["Nomor HP", nilai("hp")]
-    ];
-    if (nilai("email")) baris.push(["Email", nilai("email")]);
-    baris.push(["Poliklinik", poli], ["Dokter", nilai("dokter")],
-      ["Tanggal kunjungan", formatTanggal(nilai("tglKunjungan"))], ["Keluhan", nilai("keluhan")]);
+    const elemJk = document.querySelector('input[name="jk"]:checked');
+    const jk = elemJk ? elemJk.value : "-";
+    const noAntrean = buatNomorAntrean(poli);
 
-    el("nomor-antrean").textContent = buatNomorAntrean(poli);
+    const dataTersimpan = {
+      nomorAntrean: noAntrean,
+      waktuPendaftaran: new Date().toISOString(),
+      nama: nilai("nama"),
+      nik: nilai("nik"),
+      tglLahir: ubahKeTeks(nilai("tglLahir")),
+      tglLahirFormatted: formatTanggal(nilai("tglLahir")),
+      usia: el("usia").value,
+      jk: jk,
+      hp: nilai("hp"),
+      email: nilai("email") || "-",
+      poli: poli,
+      dokter: nilai("dokter"),
+      tglKunjungan: ubahKeTeks(nilai("tglKunjungan")),
+      tglKunjunganFormatted: formatTanggal(nilai("tglKunjungan")),
+      keluhan: nilai("keluhan")
+    };
+
+    // Simpan ke database simulasi
+    simpanPendaftaranKeDB(dataTersimpan);
+
+    // Tampilkan di modal
+    el("nomor-antrean").textContent = noAntrean;
     el("isi-ringkasan").innerHTML = "";
+
+    const baris = [
+      ["Nama Lengkap", dataTersimpan.nama],
+      ["NIK", dataTersimpan.nik],
+      ["Tanggal Lahir", dataTersimpan.tglLahirFormatted],
+      ["Usia", dataTersimpan.usia],
+      ["Jenis Kelamin", dataTersimpan.jk],
+      ["Nomor HP", dataTersimpan.hp]
+    ];
+    if (dataTersimpan.email && dataTersimpan.email !== "-") {
+      baris.push(["Email", dataTersimpan.email]);
+    }
+    baris.push(
+      ["Poliklinik", dataTersimpan.poli],
+      ["Dokter", dataTersimpan.dokter],
+      ["Tanggal Kunjungan", dataTersimpan.tglKunjunganFormatted],
+      ["Keluhan", dataTersimpan.keluhan]
+    );
+
     baris.forEach(function (b) {
-      const dt = document.createElement("dt"); dt.className = "col-sm-4"; dt.textContent = b[0];
-      const dd = document.createElement("dd"); dd.className = "col-sm-8"; dd.textContent = b[1]; // textContent: aman dari HTML
+      const dt = document.createElement("dt");
+      dt.className = "col-sm-4";
+      dt.textContent = b[0];
+      const dd = document.createElement("dd");
+      dd.className = "col-sm-8";
+      dd.textContent = b[1];
       el("isi-ringkasan").append(dt, dd);
     });
+
     new bootstrap.Modal(el("modal-ringkasan")).show();
   }
 
-  // Setelah modal ditutup, form dikosongkan untuk pendaftaran berikutnya
+  // Reset form saat modal ditutup
   el("modal-ringkasan").addEventListener("hidden.bs.modal", function () {
     el("form-daftar").reset();
     el("usia").value = "-";
-    el("hitung-keluhan").textContent = "0 / 200";
-    el("dokter").innerHTML = '<option value="">Pilih poliklinik dulu</option>';
-    el("dokter").disabled = true;
+    if (el("hitung-keluhan")) el("hitung-keluhan").textContent = "0 / 200";
+    if (el("dokter")) {
+      el("dokter").innerHTML = '<option value="">Pilih poliklinik dulu</option>';
+      el("dokter").disabled = true;
+    }
   });
-  el("btn-cetak").addEventListener("click", function () { window.print(); });
+
+  if (el("btn-cetak")) {
+    el("btn-cetak").addEventListener("click", function () { window.print(); });
+  }
 }

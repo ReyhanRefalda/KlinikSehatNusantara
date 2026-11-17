@@ -22,18 +22,29 @@
     </script>
   </head>
   <body>
+
+    <!-- ===== HEADER / NAVBAR ===== -->
     <header class="site-header">
       <nav class="navbar navbar-expand-md" aria-label="Navigasi utama">
         <div class="container">
-          <a class="navbar-brand" href="index.html"
-            ><img
-              src="img/logo.svg"
-              alt="Logo Klinik Sehat Nusantara"
-              width="36"
-              height="36"
-            />
-            Sehat Nusantara</a
-          >
+
+          <!-- Brand Logo & Nama -->
+          <a class="navbar-brand" href="index.html">
+            <div class="navbar-brand-logo">
+              <img
+                src="img/logo.svg"
+                alt="Logo Klinik Sehat Nusantara"
+                width="26"
+                height="26"
+              />
+            </div>
+            <div class="navbar-brand-text">
+              <span class="brand-name">Sehat Nusantara</span>
+              <span class="brand-sub">Klinik Pratama</span>
+            </div>
+          </a>
+
+          <!-- Toggler Mobile -->
           <button
             class="navbar-toggler"
             type="button"
@@ -45,42 +56,57 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
+
+          <!-- Menu Navigasi & Aksi -->
           <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Beranda</a>
+                <a class="nav-link" href="index.html">
+                  <span>Beranda</span>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="layanan.html">Layanan</a>
+                <a class="nav-link" href="layanan.html">
+                  <span>Layanan</span>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="dokter.html">Jadwal Dokter</a>
+                <a class="nav-link" href="dokter.html">
+                  <span>Jadwal Dokter</span>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="pendaftaran.html"
-                  >Pendaftaran</a
-                >
+                <a class="nav-link active" href="pendaftaran.html">
+                  <span>Pendaftaran</span>
+                </a>
               </li>
             </ul>
-            <button
-              id="btn-tema"
-              type="button"
-              class="btn-tema ms-md-3 my-2 my-md-0"
-              aria-pressed="false"
-            >
-              🌙 Gelap
-            </button>
+
+            <div class="navbar-actions">
+              <button
+                id="btn-tema"
+                type="button"
+                class="btn-tema"
+                aria-pressed="false"
+              >
+                🌙 Gelap
+              </button>
+              <a href="#form-daftar" class="btn-daftar-nav">
+                Daftar Online
+              </a>
+            </div>
           </div>
+
         </div>
       </nav>
     </header>
 
-    <!-- Hero Section Pendaftaran -->
+    <!-- ===== HERO SECTION PENDAFTARAN ===== -->
     <section class="hero-pendaftaran">
       <div class="container">
         <div class="hero-pendaftaran-inner">
           <div class="hero-pendaftaran-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
               <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
               <path d="M12 11v6M9 14h6"/>
@@ -88,7 +114,7 @@
           </div>
           <div>
             <h1 class="hero-pendaftaran-judul">Pendaftaran Pasien Online</h1>
-            <p class="hero-pendaftaran-sub">Daftarkan kunjungan Anda dengan mudah — pilih poliklinik, dokter, dan jadwal sesuai kebutuhan Anda.</p>
+            <p class="hero-pendaftaran-sub">Daftarkan kunjungan rawat jalan Anda dengan mudah — pilih poliklinik, dokter, dan jadwal kedatangan Anda.</p>
           </div>
         </div>
       </div>
@@ -101,8 +127,8 @@
 
             <!-- Notifikasi simulasi -->
             <div class="notif-simulasi">
-              <span class="notif-simulasi-icon">ℹ️</span>
-              <span>Ini adalah <strong>simulasi pendaftaran</strong>. Data tidak tersimpan di server dan nomor antrean bersifat demonstrasi.</span>
+              <span class="notif-simulasi-icon" aria-hidden="true">ℹ️</span>
+              <span><strong>Informasi Simulasi:</strong> Formulir ini berjalan untuk demonstrasi front-end. Nomor antrean dan data kunjungan tersimpan rapi pada sistem browser lokal Anda.</span>
             </div>
 
             <form id="form-daftar" novalidate>
@@ -112,15 +138,15 @@
                 <div class="form-section-header">
                   <div class="form-section-num">1</div>
                   <div>
-                    <h2 class="form-section-title">Data Pribadi</h2>
-                    <p class="form-section-desc">Isi informasi identitas diri Anda dengan benar</p>
+                    <h2 class="form-section-title">Data Pribadi Pasien</h2>
+                    <p class="form-section-desc">Isi identitas diri calon pasien dengan benar sesuai KTP/KK</p>
                   </div>
                 </div>
                 <div class="form-section-body">
 
                   <div class="mb-4">
                     <label for="nama" class="form-label">
-                      <span class="label-icon">👤</span> Nama Lengkap <span class="wajib">*</span>
+                      <span class="label-icon">👤</span> Nama Lengkap Pasien <span class="wajib">*</span>
                     </label>
                     <input
                       type="text"
@@ -135,7 +161,7 @@
 
                   <div class="mb-4">
                     <label for="nik" class="form-label">
-                      <span class="label-icon">🪪</span> NIK (16 digit) <span class="wajib">*</span>
+                      <span class="label-icon">🪪</span> NIK (Nomor Induk Kependudukan) <span class="wajib">*</span>
                     </label>
                     <input
                       type="text"
@@ -143,7 +169,7 @@
                       data-field="nik"
                       class="form-control form-control-modern"
                       inputmode="numeric"
-                      placeholder="Nomor Induk Kependudukan 16 digit"
+                      placeholder="16 digit angka sesuai KTP / Kartu Keluarga"
                       maxlength="16"
                     />
                     <div class="pesan-error" id="err-nik"></div>
@@ -164,7 +190,7 @@
                     </div>
                     <div class="col-md-6">
                       <label for="usia" class="form-label">
-                        <span class="label-icon">⏳</span> Usia
+                        <span class="label-icon">⏳</span> Usia (Otomatis)
                       </label>
                       <input
                         type="text"
@@ -172,11 +198,12 @@
                         class="form-control form-control-modern form-control-readonly"
                         value="-"
                         readonly
+                        tabindex="-1"
                       />
                     </div>
                   </div>
 
-                  <div class="mb-4">
+                  <div class="mb-2">
                     <span class="form-label d-block">
                       <span class="label-icon">⚥</span> Jenis Kelamin <span class="wajib">*</span>
                     </span>
@@ -222,7 +249,7 @@
                   <div class="form-section-num">2</div>
                   <div>
                     <h2 class="form-section-title">Informasi Kontak</h2>
-                    <p class="form-section-desc">Nomor HP digunakan untuk konfirmasi kunjungan</p>
+                    <p class="form-section-desc">Nomor kontak aktif untuk notifikasi dan panggilan antrean</p>
                   </div>
                 </div>
                 <div class="form-section-body">
@@ -230,7 +257,7 @@
                   <div class="row g-3">
                     <div class="col-md-6 mb-2">
                       <label for="hp" class="form-label">
-                        <span class="label-icon">📱</span> Nomor HP <span class="wajib">*</span>
+                        <span class="label-icon">📱</span> Nomor Handphone / WhatsApp <span class="wajib">*</span>
                       </label>
                       <input
                         type="tel"
@@ -238,20 +265,20 @@
                         data-field="hp"
                         class="form-control form-control-modern"
                         inputmode="numeric"
-                        placeholder="08xxxxxxxxxx"
+                        placeholder="Contoh: 081234567890"
                       />
                       <div class="pesan-error" id="err-hp"></div>
                     </div>
                     <div class="col-md-6 mb-2">
                       <label for="email" class="form-label">
-                        <span class="label-icon">✉️</span> Email <span class="label-opsional">(opsional)</span>
+                        <span class="label-icon">✉️</span> Alamat Email <span class="label-opsional">(opsional)</span>
                       </label>
                       <input
                         type="email"
                         id="email"
                         data-field="email"
                         class="form-control form-control-modern"
-                        placeholder="nama@email.com"
+                        placeholder="contoh: pasien@email.com"
                       />
                       <div class="pesan-error" id="err-email"></div>
                     </div>
@@ -260,13 +287,13 @@
                 </div>
               </div>
 
-              <!-- === BAGIAN 3: JADWAL KUNJUNGAN === -->
+              <!-- === BAGIAN 3: POLIKLINIK & DOKTER === -->
               <div class="form-section">
                 <div class="form-section-header">
                   <div class="form-section-num">3</div>
                   <div>
-                    <h2 class="form-section-title">Jadwal & Layanan</h2>
-                    <p class="form-section-desc">Pilih poliklinik, dokter, dan tanggal kunjungan Anda</p>
+                    <h2 class="form-section-title">Jadwal &amp; Layanan Medis</h2>
+                    <p class="form-section-desc">Tentukan poliklinik tujuan, dokter spesialis, dan tanggal kedatangan</p>
                   </div>
                 </div>
                 <div class="form-section-body">
@@ -274,20 +301,20 @@
                   <div class="row g-3 mb-4">
                     <div class="col-md-6">
                       <label for="poli" class="form-label">
-                        <span class="label-icon">🏥</span> Poliklinik <span class="wajib">*</span>
+                        <span class="label-icon">🏥</span> Poliklinik Tujuan <span class="wajib">*</span>
                       </label>
                       <select id="poli" data-field="poli" class="form-select form-control-modern">
-                        <option value="">-- Pilih poliklinik --</option>
-                        <option value="Umum">Umum</option>
-                        <option value="Gigi">Gigi</option>
-                        <option value="KIA">KIA</option>
-                        <option value="Gizi">Gizi</option>
+                        <option value="">-- Pilih Poliklinik --</option>
+                        <option value="Umum">Poliklinik Umum</option>
+                        <option value="Gigi">Poliklinik Gigi</option>
+                        <option value="KIA">Poliklinik KIA</option>
+                        <option value="Gizi">Poliklinik Gizi</option>
                       </select>
                       <div class="pesan-error" id="err-poli"></div>
                     </div>
                     <div class="col-md-6">
                       <label for="dokter" class="form-label">
-                        <span class="label-icon">👨‍⚕️</span> Dokter <span class="wajib">*</span>
+                        <span class="label-icon">👨‍⚕️</span> Dokter Bertugas <span class="wajib">*</span>
                       </label>
                       <select
                         id="dokter"
@@ -295,15 +322,15 @@
                         class="form-select form-control-modern"
                         disabled
                       >
-                        <option value="">Pilih poliklinik dulu</option>
+                        <option value="">Pilih poliklinik terlebih dahulu</option>
                       </select>
                       <div class="pesan-error" id="err-dokter"></div>
                     </div>
                   </div>
 
-                  <div class="mb-4">
+                  <div class="mb-2">
                     <label for="tglKunjungan" class="form-label">
-                      <span class="label-icon">📅</span> Tanggal Kunjungan <span class="wajib">*</span>
+                      <span class="label-icon">📅</span> Tanggal Rencana Kunjungan <span class="wajib">*</span>
                     </label>
                     <input
                       type="date"
@@ -317,27 +344,27 @@
                 </div>
               </div>
 
-              <!-- === BAGIAN 4: KELUHAN === -->
+              <!-- === BAGIAN 4: KELUHAN & PERSETUJUAN === -->
               <div class="form-section">
                 <div class="form-section-header">
                   <div class="form-section-num">4</div>
                   <div>
-                    <h2 class="form-section-title">Keluhan & Persetujuan</h2>
-                    <p class="form-section-desc">Deskripsikan keluhan Anda agar dokter dapat mempersiapkan pemeriksaan</p>
+                    <h2 class="form-section-title">Keluhan &amp; Konfirmasi</h2>
+                    <p class="form-section-desc">Uraikan gejala singkat agar dokter dapat mempersiapkan penanganan awal</p>
                   </div>
                 </div>
                 <div class="form-section-body">
 
                   <div class="mb-4">
                     <label for="keluhan" class="form-label">
-                      <span class="label-icon">📋</span> Keluhan Utama <span class="wajib">*</span>
+                      <span class="label-icon">📋</span> Keluhan Utama Pasien <span class="wajib">*</span>
                     </label>
                     <textarea
                       id="keluhan"
                       data-field="keluhan"
                       class="form-control form-control-modern"
                       rows="4"
-                      placeholder="Contoh: Sakit kepala dan demam sejak 2 hari yang lalu..."
+                      placeholder="Jelaskan keluhan yang dirasakan, sejak kapan mulai muncul, dan gejala yang menyertai..."
                     ></textarea>
                     <div class="d-flex justify-content-between align-items-center mt-1">
                       <div class="pesan-error" id="err-keluhan"></div>
@@ -345,7 +372,7 @@
                     </div>
                   </div>
 
-                  <div class="mb-4">
+                  <div class="mb-2">
                     <label class="persetujuan-box" for="setuju">
                       <input
                         class="form-check-input"
@@ -354,7 +381,7 @@
                         data-field="setuju"
                       />
                       <span class="persetujuan-teks">
-                        Saya menyetujui data di atas digunakan untuk keperluan pendaftaran dan pelayanan medis di Klinik Pratama Sehat Nusantara.
+                        Saya menyatakan data yang diisi adalah benar dan menyetujui penggunaannya untuk keperluan pendaftaran antrean dan rekam medis rawat jalan di Klinik Pratama Sehat Nusantara.
                       </span>
                     </label>
                     <div class="pesan-error" id="err-setuju"></div>
@@ -365,7 +392,7 @@
 
               <!-- Tombol Submit -->
               <div class="form-submit-area">
-                <p class="form-submit-note"><span class="wajib">*</span> Kolom wajib diisi</p>
+                <p class="form-submit-note"><span class="wajib">*</span> Seluruh kolom bertanda bintang wajib diisi</p>
                 <button type="submit" class="btn btn-daftar">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12"/>
@@ -380,7 +407,7 @@
       </section>
     </main>
 
-    <!-- Modal Hasil Pendaftaran -->
+    <!-- ===== MODAL HASIL PENDAFTARAN ===== -->
     <div
       class="modal fade"
       id="modal-ringkasan"
@@ -395,7 +422,7 @@
               <div class="modal-sukses-icon" aria-hidden="true">✅</div>
               <div>
                 <h2 class="modal-title h5" id="judul-modal">Pendaftaran Berhasil!</h2>
-                <p class="modal-subtitle">Simpan nomor antrean Anda berikut ini</p>
+                <p class="modal-subtitle">Data kunjungan Anda telah tercatat pada sistem antrean klinik</p>
               </div>
             </div>
             <button
@@ -409,17 +436,17 @@
             <div class="antrean-box">
               <p class="antrean-label">Nomor Antrean Anda</p>
               <p class="nomor-antrean" id="nomor-antrean"></p>
-              <p class="antrean-note">Harap datang 15 menit sebelum jadwal</p>
+              <p class="antrean-note">Mohon hadir 15 menit sebelum waktu konsultasi dokter dimulai</p>
             </div>
             <div class="ringkasan-wrapper">
-              <h3 class="ringkasan-judul">Ringkasan Pendaftaran</h3>
+              <h3 class="ringkasan-judul">Ringkasan Data Pasien &amp; Kunjungan</h3>
               <dl class="row ringkasan-dl" id="isi-ringkasan"></dl>
             </div>
           </div>
           <div class="modal-footer modal-footer-modern">
             <button type="button" class="btn btn-cetak-modern" id="btn-cetak">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-              Cetak Ringkasan
+              Cetak Bukti Antrean
             </button>
             <button
               type="button"
@@ -433,40 +460,89 @@
       </div>
     </div>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="site-footer">
-      <div class="container">
-        <div class="row g-4">
-          <div class="col-md-5">
-            <h2 class="h5">Klinik Pratama Sehat Nusantara</h2>
-            <p>
-              Klinik rawat jalan fiktif untuk keperluan tugas kuliah. Seluruh
-              data bersifat simulasi.
-            </p>
-          </div>
-          <div class="col-md-4">
-            <h2 class="h5">Kontak</h2>
-            <ul class="list-unstyled">
-              <li>Jl. Contoh Sehat No. 12, Kota Kediri</li>
-              <li>Telepon: (0354) 000-000</li>
-              <li>Email: info@sehatnusantara.example</li>
-            </ul>
-          </div>
-          <div class="col-md-3">
-            <h2 class="h5">Menu</h2>
-            <ul class="list-unstyled">
-              <li><a href="index.html">Beranda</a></li>
-              <li><a href="layanan.html">Layanan</a></li>
-              <li><a href="dokter.html">Jadwal Dokter</a></li>
-              <li><a href="pendaftaran.html">Pendaftaran</a></li>
-            </ul>
+      <div class="footer-top">
+        <div class="container">
+          <div class="row g-4 g-lg-5">
+
+            <!-- Kolom 1: Identitas -->
+            <div class="col-md-5 col-lg-4">
+              <div class="footer-brand">
+                <div class="footer-brand-logo">
+                  <img src="img/logo.svg" alt="Logo Sehat Nusantara" width="28" height="28" />
+                </div>
+                <div>
+                  <span class="footer-brand-name">Sehat Nusantara</span>
+                  <span class="footer-brand-tag">Klinik Pratama</span>
+                </div>
+              </div>
+              <p class="footer-desc">
+                Layanan kesehatan rawat jalan terpadu di Kota Kediri. Memberikan kemudahan pendaftaran online dan informasi jadwal dokter yang akurat.
+              </p>
+              <div class="footer-badges">
+                <span class="footer-badge">✦ Rawat Jalan</span>
+                <span class="footer-badge">✦ 4 Poliklinik</span>
+                <span class="footer-badge">✦ Pendaftaran Online</span>
+              </div>
+            </div>
+
+            <!-- Kolom 2: Navigasi -->
+            <div class="col-6 col-md-3 col-lg-2 offset-lg-1">
+              <h2 class="footer-heading">Navigasi</h2>
+              <ul class="footer-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="layanan.html">Layanan</a></li>
+                <li><a href="dokter.html">Jadwal Dokter</a></li>
+                <li><a href="pendaftaran.html">Pendaftaran</a></li>
+              </ul>
+            </div>
+
+            <!-- Kolom 3: Kontak -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <h2 class="footer-heading">Kontak &amp; Alamat</h2>
+              <ul class="footer-contact">
+                <li>
+                  <span class="fc-icon" aria-hidden="true">📍</span>
+                  <span>Jl. Contoh Sehat No. 12,<br />Kota Kediri, Jawa Timur</span>
+                </li>
+                <li>
+                  <span class="fc-icon" aria-hidden="true">📞</span>
+                  <span>(0354) 000-000</span>
+                </li>
+                <li>
+                  <span class="fc-icon" aria-hidden="true">✉️</span>
+                  <span>info@sehatnusantara.example</span>
+                </li>
+                <li>
+                  <span class="fc-icon" aria-hidden="true">🕐</span>
+                  <span>Senin – Sabtu: 07.30 – 17.00<br /><small class="text-white-50">Minggu &amp; Libur: Tutup</small></span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Kolom 4: CTA Layanan -->
+            <div class="col-md-12 col-lg-2">
+              <h2 class="footer-heading">Layanan Pasien</h2>
+              <p class="footer-cta-desc">Daftar kunjungan dari rumah dan pantau nomor antrean Anda dengan praktis.</p>
+              <a href="pendaftaran.html" class="btn-footer-daftar">Daftar Online →</a>
+            </div>
+
           </div>
         </div>
-        <p class="copy">
-          &copy; 2026 Klinik Sehat Nusantara. Prototipe front-end, tanpa backend
-          dan database.
-        </p>
+      </div>
+
+      <!-- Footer Bottom Bar -->
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="footer-bottom-inner">
+            <p class="copy">&copy; 2026 Klinik Pratama Sehat Nusantara. Seluruh hak cipta dilindungi.</p>
+            <p class="footer-credit">Prototipe front-end untuk simulasi tugas kuliah</p>
+          </div>
+        </div>
       </div>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
   </body>
