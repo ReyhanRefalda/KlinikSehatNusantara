@@ -90,18 +90,18 @@ a:hover {
    ========================================================================== */
 .site-header {
   background: var(--header-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-halus);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(26, 143, 96, 0.12);
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-  transition: background-color 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 4px 18px rgba(15, 61, 46, 0.04);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .site-header .navbar {
-  padding: 0.65rem 0;
+  padding: 0.75rem 0;
 }
 
 .navbar .container {
@@ -114,7 +114,7 @@ a:hover {
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
   text-decoration: none;
   padding: 0;
   margin: 0;
@@ -122,20 +122,21 @@ a:hover {
 }
 
 .navbar-brand-logo {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   background: linear-gradient(135deg, #1a8f60 0%, #2bc083 100%);
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 3px 10px rgba(26, 143, 96, 0.25);
+  box-shadow: 0 4px 12px rgba(26, 143, 96, 0.28);
   padding: 7px;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .navbar-brand:hover .navbar-brand-logo {
   transform: scale(1.04);
+  box-shadow: 0 6px 16px rgba(26, 143, 96, 0.36);
 }
 .navbar-brand-logo img {
   filter: brightness(10);
@@ -147,20 +148,20 @@ a:hover {
 .navbar-brand-text {
   display: flex;
   flex-direction: column;
-  line-height: 1.15;
+  line-height: 1.18;
 }
 .brand-name {
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1.12rem;
   color: var(--biru-tua);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 .brand-sub {
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--teks-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--hijau);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
 }
 
 /* Nav Menu Links (Terpusat & Seimbang) */
@@ -171,16 +172,16 @@ a:hover {
 .navbar-nav {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
   margin: 0 auto;
 }
 
 .navbar .nav-link {
   color: var(--teks);
   font-weight: 600;
-  font-size: 0.93rem;
-  padding: 0.5rem 0.95rem;
-  border-radius: 8px;
+  font-size: 0.92rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9px;
   position: relative;
   transition: color 0.18s ease, background-color 0.18s ease;
 }
@@ -191,15 +192,16 @@ a:hover {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -4px;
+  bottom: -5px;
   width: 0;
-  height: 2px;
+  height: 2.5px;
   background: var(--hijau);
-  border-radius: 2px;
+  border-radius: 3px;
   transition: width 0.22s ease;
 }
 .navbar .nav-link:hover {
   color: var(--hijau);
+  background: rgba(26, 143, 96, 0.07);
 }
 .navbar .nav-link:hover span::after,
 .navbar .nav-link.active span::after {
@@ -208,34 +210,36 @@ a:hover {
 .navbar .nav-link.active {
   color: var(--hijau);
   font-weight: 700;
+  background: rgba(26, 143, 96, 0.09);
 }
 
 /* Navbar Actions (Kanan: Theme Toggle & CTA) */
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.75rem;
   flex-shrink: 0;
 }
 
 .btn-tema {
-  background: transparent;
-  border: 1px solid var(--border-halus);
-  border-radius: 20px;
-  padding: 0.38rem 0.9rem;
+  background: rgba(26, 143, 96, 0.06);
+  border: 1.5px solid var(--border-halus);
+  border-radius: 9999px;
+  padding: 0.45rem 1rem;
   color: var(--teks);
-  font-size: 0.86rem;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  transition: all 0.18s ease;
+  gap: 0.45rem;
+  transition: all 0.2s ease;
 }
 .btn-tema:hover {
   border-color: var(--hijau);
   color: var(--hijau);
-  background: rgba(26, 143, 96, 0.06);
+  background: rgba(26, 143, 96, 0.12);
+  transform: translateY(-1px);
 }
 
 .btn-daftar-nav {
@@ -247,15 +251,15 @@ a:hover {
   text-decoration: none;
   font-weight: 700;
   font-size: 0.88rem;
-  padding: 0.45rem 1.15rem;
-  border-radius: 9px;
-  box-shadow: 0 3px 10px rgba(26, 143, 96, 0.28);
+  padding: 0.48rem 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(26, 143, 96, 0.28);
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 .btn-daftar-nav:hover {
   background: linear-gradient(135deg, #22a26e 0%, #1a8f60 100%);
-  box-shadow: 0 4px 14px rgba(26, 143, 96, 0.4);
+  box-shadow: 0 6px 16px rgba(26, 143, 96, 0.38);
   transform: translateY(-1px);
 }
 
@@ -1062,13 +1066,40 @@ a:hover {
   box-shadow: 0 3px 8px rgba(26, 143, 96, 0.25);
 }
 .badge-poli {
-  background: var(--hijau-muda);
-  color: var(--hijau-tua);
-  padding: 0.2rem 0.65rem;
+  background: #eef9f3;
+  color: #126b48;
+  border: 1px solid rgba(26, 143, 96, 0.22);
+  padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.78rem;
   font-weight: 600;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+/* Badge Poli — Warna Kategori (Light Mode) */
+.badge-poli-umum {
+  background: #eef9f3;
+  color: #126b48;
+  border-color: rgba(26, 143, 96, 0.25);
+}
+.badge-poli-gigi {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: rgba(37, 99, 235, 0.22);
+}
+.badge-poli-kia {
+  background: #fdf2f8;
+  color: #be185d;
+  border-color: rgba(219, 39, 119, 0.22);
+}
+.badge-poli-gizi {
+  background: #fffbeb;
+  color: #b45309;
+  border-color: rgba(217, 119, 6, 0.22);
 }
 
 /* Jadwal Dokter & Wadah Tabel Responsive */
@@ -1118,7 +1149,7 @@ a:hover {
   }
   .badge-poli {
     font-size: 0.75rem;
-    padding: 0.18rem 0.55rem;
+    padding: 0.18rem 0.6rem;
   }
   .kartu-dokter p.small {
     font-size: 0.82rem;
@@ -1252,11 +1283,11 @@ a:hover {
   padding: 2.5rem 0 4rem;
 }
 .form-wrapper {
-  max-width: 760px;
+  max-width: 780px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1.35rem;
+  gap: 1.75rem;
 }
 
 .notif-simulasi {
@@ -1274,7 +1305,7 @@ a:hover {
 
 .form-section {
   background: var(--card-bg);
-  border-radius: 16px;
+  border-radius: 18px;
   box-shadow: var(--card-shadow);
   border: 1px solid var(--border-halus);
   overflow: hidden;
@@ -1287,8 +1318,8 @@ a:hover {
 .form-section-header {
   display: flex;
   align-items: center;
-  gap: 0.95rem;
-  padding: 1.1rem 1.5rem;
+  gap: 1.1rem;
+  padding: 1.25rem 1.75rem;
   background: rgba(26, 143, 96, 0.04);
   border-bottom: 1px solid var(--border-halus);
 }
@@ -1318,7 +1349,7 @@ a:hover {
   margin: 0;
 }
 .form-section-body {
-  padding: 1.5rem;
+  padding: 1.85rem 1.75rem;
 }
 
 .form-label {
@@ -1494,7 +1525,7 @@ a:hover {
     padding: 1.75rem 0 3rem;
   }
   .form-wrapper {
-    gap: 1rem;
+    gap: 1.5rem;
   }
   .notif-simulasi {
     padding: 0.75rem 0.95rem;
@@ -2065,9 +2096,9 @@ a:hover {
   --card-bg: #0f2319;
   --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.45);
-  --header-bg: rgba(12, 26, 19, 0.95);
-  --footer-bg: #061610;
-  --footer-bottom-bg: #040e0a;
+  --header-bg: rgba(9, 23, 17, 0.94);
+  --footer-bg: #0c241b;
+  --footer-bottom-bg: #071711;
 
   /* Bootstrap Variable Overrides */
   --bs-body-bg: #091711;
@@ -2078,13 +2109,14 @@ a:hover {
 
 /* Penyesuaian Komponen di Dark Mode */
 [data-bs-theme="dark"] .site-header {
+  border-bottom-color: rgba(52, 199, 138, 0.2);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 [data-bs-theme="dark"] .brand-name {
   color: #ffffff;
 }
 [data-bs-theme="dark"] .brand-sub {
-  color: #8fa69a;
+  color: #4ade80;
 }
 [data-bs-theme="dark"] .navbar .nav-link {
   color: #c6dcce;
@@ -2100,8 +2132,50 @@ a:hover {
 [data-bs-theme="dark"] .navbar-toggler-icon {
   filter: invert(1);
 }
+[data-bs-theme="dark"] .btn-tema {
+  background: rgba(52, 199, 138, 0.1);
+  border-color: rgba(52, 199, 138, 0.3);
+  color: #c6dcce;
+}
+[data-bs-theme="dark"] .btn-tema:hover {
+  background: rgba(52, 199, 138, 0.18);
+  border-color: #34c78a;
+  color: #4ade80;
+}
 [data-bs-theme="dark"] .text-dark {
   color: #e4eee8 !important;
+}
+
+/* Footer Dark Mode — Visual Separation */
+[data-bs-theme="dark"] .site-footer {
+  background: linear-gradient(180deg, #0e291f 0%, #0a1e16 100%);
+  border-top: 1px solid rgba(52, 199, 138, 0.25);
+}
+[data-bs-theme="dark"] .footer-bottom {
+  background: #071711;
+  border-top-color: rgba(52, 199, 138, 0.15);
+}
+[data-bs-theme="dark"] .footer-heading {
+  color: #ffffff;
+  border-bottom-color: rgba(52, 199, 138, 0.2);
+}
+[data-bs-theme="dark"] .footer-desc,
+[data-bs-theme="dark"] .footer-links a,
+[data-bs-theme="dark"] .footer-contact li,
+[data-bs-theme="dark"] .footer-cta-desc {
+  color: #b8d4c7;
+}
+[data-bs-theme="dark"] .footer-links a:hover {
+  color: #4ade80;
+}
+[data-bs-theme="dark"] .footer-badge {
+  background: rgba(52, 199, 138, 0.12);
+  border-color: rgba(52, 199, 138, 0.25);
+  color: #9fe2bf;
+}
+[data-bs-theme="dark"] .copy,
+[data-bs-theme="dark"] .footer-credit {
+  color: #7d9e90;
 }
 
 /* Card & Background di Dark Mode */
@@ -2114,6 +2188,34 @@ a:hover {
 [data-bs-theme="dark"] .form-submit-area {
   background-color: var(--card-bg);
   border-color: var(--border-halus);
+}
+
+/* Badge Poli Dark Mode — Visible & Distinct */
+[data-bs-theme="dark"] .badge-poli {
+  background-color: rgba(52, 199, 138, 0.16) !important;
+  color: #4ade80 !important;
+  border: 1px solid rgba(52, 199, 138, 0.35) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+[data-bs-theme="dark"] .badge-poli-umum {
+  background-color: rgba(52, 199, 138, 0.16) !important;
+  color: #4ade80 !important;
+  border-color: rgba(52, 199, 138, 0.35) !important;
+}
+[data-bs-theme="dark"] .badge-poli-gigi {
+  background-color: rgba(56, 189, 248, 0.16) !important;
+  color: #38bdf8 !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+}
+[data-bs-theme="dark"] .badge-poli-kia {
+  background-color: rgba(244, 114, 182, 0.16) !important;
+  color: #f472b6 !important;
+  border-color: rgba(244, 114, 182, 0.35) !important;
+}
+[data-bs-theme="dark"] .badge-poli-gizi {
+  background-color: rgba(251, 191, 36, 0.16) !important;
+  color: #fbbf24 !important;
+  border-color: rgba(251, 191, 36, 0.35) !important;
 }
 
 [data-bs-theme="dark"] .bg-muda {
@@ -2149,7 +2251,7 @@ a:hover {
 [data-bs-theme="dark"] .form-select.form-control-modern:focus {
   background-color: #0e2219;
   border-color: var(--hijau);
-  box-shadow: 0 0 0 3px rgba(52, 199, 138, 0.2);
+  box-shadow: 0 0 0 3px rgba(0, 255, 149, 0.2);
 }
 [data-bs-theme="dark"] .form-control-readonly {
   background-color: #08140e !important;

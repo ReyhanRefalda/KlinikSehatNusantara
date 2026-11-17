@@ -255,7 +255,7 @@ if (el("daftar-dokter")) {
       const kolom = document.createElement("div");
       kolom.className = "col-12 col-md-6 col-lg-4";
       kolom.innerHTML = '<div class="kartu-dokter"><div class="avatar" aria-hidden="true">' + huruf + '</div><div>' +
-        '<h2 class="h6 mb-1">' + d.nama + '</h2><span class="badge-poli">Poliklinik ' + d.poliklinik + '</span>' +
+        '<h2 class="h6 mb-1">' + d.nama + '</h2><span class="badge-poli badge-poli-' + d.poliklinik.toLowerCase() + '" data-poli="' + d.poliklinik + '">Poliklinik ' + d.poliklinik + '</span>' +
         '<p class="mb-0 mt-1 small text-muted">' + d.hari + ", " + d.jam + '<br>' + d.info + '</p></div></div>';
       el("daftar-dokter").appendChild(kolom);
     });
