@@ -49,6 +49,12 @@ function ubahKeTeks(tgl) { // Date -> "yyyy-mm-dd" (waktu lokal)
 }
 function el(id) { return document.getElementById(id); }
 
+// Kalender resmi/libur bersama diperbarui dari API per tahun. Cache hanya 24 jam.
+const zonaKlinik = "Asia/Jakarta";
+function tanggalJakarta() {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: zonaKlinik, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+}
+
 /* ===== MODE GELAP ===== */
 // Tema disimpan di localStorage agar tetap sama saat pindah halaman
 function terapkanTema(tema) {
@@ -107,11 +113,57 @@ if (el("daftar-dokter")) {
 if (el("form-daftar")) {
   const nilai = function (id) { return el(id).value.trim(); };
   // Rentang tanggal untuk input (validasi tetap dilakukan di JavaScript)
-  const hariIni = jamNol(new Date());
+  const hariIni = bacaTanggal(tanggalJakarta());
   const batasAkhir = jamNol(new Date()); batasAkhir.setDate(batasAkhir.getDate() + 14);
   el("tglKunjungan").min = ubahKeTeks(hariIni);
   el("tglKunjungan").max = ubahKeTeks(batasAkhir);
   el("tglLahir").max = ubahKeTeks(hariIni);
+
+  const tanggalLibur = new Map();
+  let dataLiburSiap = false;
+  let tahunDimuat = null;
+  const inputTanggal = el("tglKunjungan");
+  const pesanLibur = document.createElement("div");
+  pesanLibur.className = "pesan-libur small mt-1";
+  pesanLibur.setAttribute("role", "status");
+  inputTanggal.insertAdjacentElement("afterend", pesanLibur);
+
+  async function muatHariLibur(tahun) {
+    if (tahunDimuat === tahun && dataLiburSiap) return;
+    tahunDimuat = tahun;
+    dataLiburSiap = false;
+    inputTanggal.disabled = true;
+    pesanLibur.textContent = "Memuat kalender hari libur…";
+    try {
+      const key = "libur-id-" + tahun;
+      let hasil = null;
+      try {
+        const cache = JSON.parse(localStorage.getItem(key) || "null");
+        if (cache && Date.now() - cache.disimpan < 86400000 && Array.isArray(cache.data)) hasil = cache.data;
+      } catch (_) { /* cache tidak valid; ambil data baru */ }
+      if (!hasil) {
+        const response = await fetch("https://api-hari-libur.vercel.app/api?year=" + encodeURIComponent(tahun), { cache: "no-store" });
+        if (!response.ok) throw new Error("Kalender libur tidak dapat diakses.");
+        const json = await response.json();
+        hasil = Array.isArray(json) ? json : (json.data || json.holidays);
+        if (!Array.isArray(hasil)) throw new Error("Format kalender libur tidak dikenali.");
+        localStorage.setItem(key, JSON.stringify({ disimpan: Date.now(), data: hasil }));
+      }
+      tanggalLibur.clear();
+      hasil.forEach(function (item) {
+        const tgl = item.date || item.tanggal;
+        if (tgl) tanggalLibur.set(tgl, item.name || item.nama || item.description || "Hari libur nasional/cuti bersama");
+      });
+      dataLiburSiap = true;
+      inputTanggal.disabled = false;
+      pesanLibur.textContent = "Hari Minggu, hari libur nasional, dan cuti bersama tidak dapat dipilih.";
+      if (inputTanggal.value) periksa("tglKunjungan");
+    } catch (error) {
+      pesanLibur.textContent = "Kalender hari libur gagal dimuat. Pendaftaran tanggal dinonaktifkan sementara; coba muat ulang halaman.";
+      tampilError("tglKunjungan", "Kalender hari libur belum tersedia. Coba lagi sebelum memilih tanggal.");
+    }
+  }
+  muatHariLibur(Number(tanggalJakarta().slice(0, 4)));
 
   // Setiap fungsi mengembalikan pesan error, atau "" jika valid
   const validator = {
@@ -161,9 +213,12 @@ if (el("form-daftar")) {
     tglKunjungan: function () {
       const v = nilai("tglKunjungan");
       if (!v) return "Tanggal kunjungan wajib diisi.";
+      if (!dataLiburSiap) return "Kalender hari libur belum tersedia. Coba lagi sebelum memilih tanggal.";
       const tgl = bacaTanggal(v);
       if (tgl < hariIni) return "Tanggal kunjungan tidak boleh sebelum hari ini.";
       if (tgl > batasAkhir) return "Tanggal kunjungan maksimal 14 hari dari hari ini.";
+      if (new Date(v + "T00:00:00Z").getUTCDay() === 0) return "Booking pada hari Minggu tidak tersedia.";
+      if (tanggalLibur.has(v)) return "Tanggal ini tidak tersedia: " + tanggalLibur.get(v) + ".";
       return "";
     },
     keluhan: function () {
@@ -221,6 +276,7 @@ if (el("form-daftar")) {
     tampilError("dokter", "");
   });
   el("dokter").addEventListener("change", function () { periksa("dokter"); });
+  inputTanggal.addEventListener("change", function () { periksa("tglKunjungan"); });
 
   // event input: penghitung karakter keluhan
   el("keluhan").addEventListener("input", function () {
