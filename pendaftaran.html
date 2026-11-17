@@ -6,7 +6,7 @@
     <title>Pendaftaran | Klinik Pratama Sehat Nusantara</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -74,177 +74,313 @@
         </div>
       </nav>
     </header>
+
+    <!-- Hero Section Pendaftaran -->
+    <section class="hero-pendaftaran">
+      <div class="container">
+        <div class="hero-pendaftaran-inner">
+          <div class="hero-pendaftaran-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+              <path d="M12 11v6M9 14h6"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="hero-pendaftaran-judul">Pendaftaran Pasien Online</h1>
+            <p class="hero-pendaftaran-sub">Daftarkan kunjungan Anda dengan mudah — pilih poliklinik, dokter, dan jadwal sesuai kebutuhan Anda.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <main>
-      <section class="bagian">
-        <div class="container form-lebar">
-          <h1>Pendaftaran pasien online</h1>
-          <p class="lead-teks">
-            Isi data dengan benar. Ini simulasi, nomor antrean tidak tersimpan
-            di server.
-          </p>
-          <form id="form-daftar" novalidate>
-            <div class="mb-3">
-              <label for="nama" class="form-label">Nama lengkap</label
-              ><input
-                type="text"
-                id="nama"
-                data-field="nama"
-                class="form-control"
-                autocomplete="name"
-              />
-              <div class="pesan-error" id="err-nama"></div>
+      <section class="bagian bagian-form">
+        <div class="container">
+          <div class="form-wrapper">
+
+            <!-- Notifikasi simulasi -->
+            <div class="notif-simulasi">
+              <span class="notif-simulasi-icon">ℹ️</span>
+              <span>Ini adalah <strong>simulasi pendaftaran</strong>. Data tidak tersimpan di server dan nomor antrean bersifat demonstrasi.</span>
             </div>
-            <div class="mb-3">
-              <label for="nik" class="form-label">NIK (16 digit)</label
-              ><input
-                type="text"
-                id="nik"
-                data-field="nik"
-                class="form-control"
-                inputmode="numeric"
-              />
-              <div class="pesan-error" id="err-nik"></div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="tglLahir" class="form-label">Tanggal lahir</label
-                ><input
-                  type="date"
-                  id="tglLahir"
-                  data-field="tglLahir"
-                  class="form-control"
-                />
-                <div class="pesan-error" id="err-tglLahir"></div>
+
+            <form id="form-daftar" novalidate>
+
+              <!-- === BAGIAN 1: DATA PRIBADI === -->
+              <div class="form-section">
+                <div class="form-section-header">
+                  <div class="form-section-num">1</div>
+                  <div>
+                    <h2 class="form-section-title">Data Pribadi</h2>
+                    <p class="form-section-desc">Isi informasi identitas diri Anda dengan benar</p>
+                  </div>
+                </div>
+                <div class="form-section-body">
+
+                  <div class="mb-4">
+                    <label for="nama" class="form-label">
+                      <span class="label-icon">👤</span> Nama Lengkap <span class="wajib">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="nama"
+                      data-field="nama"
+                      class="form-control form-control-modern"
+                      autocomplete="name"
+                      placeholder="Contoh: Budi Santoso"
+                    />
+                    <div class="pesan-error" id="err-nama"></div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="nik" class="form-label">
+                      <span class="label-icon">🪪</span> NIK (16 digit) <span class="wajib">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="nik"
+                      data-field="nik"
+                      class="form-control form-control-modern"
+                      inputmode="numeric"
+                      placeholder="Nomor Induk Kependudukan 16 digit"
+                      maxlength="16"
+                    />
+                    <div class="pesan-error" id="err-nik"></div>
+                  </div>
+
+                  <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                      <label for="tglLahir" class="form-label">
+                        <span class="label-icon">🗓️</span> Tanggal Lahir <span class="wajib">*</span>
+                      </label>
+                      <input
+                        type="date"
+                        id="tglLahir"
+                        data-field="tglLahir"
+                        class="form-control form-control-modern"
+                      />
+                      <div class="pesan-error" id="err-tglLahir"></div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="usia" class="form-label">
+                        <span class="label-icon">⏳</span> Usia
+                      </label>
+                      <input
+                        type="text"
+                        id="usia"
+                        class="form-control form-control-modern form-control-readonly"
+                        value="-"
+                        readonly
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <span class="form-label d-block">
+                      <span class="label-icon">⚥</span> Jenis Kelamin <span class="wajib">*</span>
+                    </span>
+                    <div class="jk-group">
+                      <label class="jk-option" for="jk-l">
+                        <input
+                          class="form-check-input visually-hidden"
+                          type="radio"
+                          name="jk"
+                          id="jk-l"
+                          value="Laki-laki"
+                          data-field="jk"
+                        />
+                        <span class="jk-card">
+                          <span class="jk-icon">♂️</span>
+                          <span class="jk-text">Laki-laki</span>
+                        </span>
+                      </label>
+                      <label class="jk-option" for="jk-p">
+                        <input
+                          class="form-check-input visually-hidden"
+                          type="radio"
+                          name="jk"
+                          id="jk-p"
+                          value="Perempuan"
+                          data-field="jk"
+                        />
+                        <span class="jk-card">
+                          <span class="jk-icon">♀️</span>
+                          <span class="jk-text">Perempuan</span>
+                        </span>
+                      </label>
+                    </div>
+                    <div class="pesan-error" id="err-jk"></div>
+                  </div>
+
+                </div>
               </div>
-              <div class="col-md-6 mb-3">
-                <label for="usia" class="form-label">Usia</label
-                ><input
-                  type="text"
-                  id="usia"
-                  class="form-control"
-                  value="-"
-                  readonly
-                />
+
+              <!-- === BAGIAN 2: KONTAK === -->
+              <div class="form-section">
+                <div class="form-section-header">
+                  <div class="form-section-num">2</div>
+                  <div>
+                    <h2 class="form-section-title">Informasi Kontak</h2>
+                    <p class="form-section-desc">Nomor HP digunakan untuk konfirmasi kunjungan</p>
+                  </div>
+                </div>
+                <div class="form-section-body">
+
+                  <div class="row g-3">
+                    <div class="col-md-6 mb-2">
+                      <label for="hp" class="form-label">
+                        <span class="label-icon">📱</span> Nomor HP <span class="wajib">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        id="hp"
+                        data-field="hp"
+                        class="form-control form-control-modern"
+                        inputmode="numeric"
+                        placeholder="08xxxxxxxxxx"
+                      />
+                      <div class="pesan-error" id="err-hp"></div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                      <label for="email" class="form-label">
+                        <span class="label-icon">✉️</span> Email <span class="label-opsional">(opsional)</span>
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        data-field="email"
+                        class="form-control form-control-modern"
+                        placeholder="nama@email.com"
+                      />
+                      <div class="pesan-error" id="err-email"></div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
-            </div>
-            <div class="mb-3">
-              <span class="form-label d-block">Jenis kelamin</span>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="jk"
-                  id="jk-l"
-                  value="Laki-laki"
-                  data-field="jk"
-                /><label class="form-check-label" for="jk-l">Laki-laki</label>
+
+              <!-- === BAGIAN 3: JADWAL KUNJUNGAN === -->
+              <div class="form-section">
+                <div class="form-section-header">
+                  <div class="form-section-num">3</div>
+                  <div>
+                    <h2 class="form-section-title">Jadwal & Layanan</h2>
+                    <p class="form-section-desc">Pilih poliklinik, dokter, dan tanggal kunjungan Anda</p>
+                  </div>
+                </div>
+                <div class="form-section-body">
+
+                  <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                      <label for="poli" class="form-label">
+                        <span class="label-icon">🏥</span> Poliklinik <span class="wajib">*</span>
+                      </label>
+                      <select id="poli" data-field="poli" class="form-select form-control-modern">
+                        <option value="">-- Pilih poliklinik --</option>
+                        <option value="Umum">Umum</option>
+                        <option value="Gigi">Gigi</option>
+                        <option value="KIA">KIA</option>
+                        <option value="Gizi">Gizi</option>
+                      </select>
+                      <div class="pesan-error" id="err-poli"></div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="dokter" class="form-label">
+                        <span class="label-icon">👨‍⚕️</span> Dokter <span class="wajib">*</span>
+                      </label>
+                      <select
+                        id="dokter"
+                        data-field="dokter"
+                        class="form-select form-control-modern"
+                        disabled
+                      >
+                        <option value="">Pilih poliklinik dulu</option>
+                      </select>
+                      <div class="pesan-error" id="err-dokter"></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="tglKunjungan" class="form-label">
+                      <span class="label-icon">📅</span> Tanggal Kunjungan <span class="wajib">*</span>
+                    </label>
+                    <input
+                      type="date"
+                      id="tglKunjungan"
+                      data-field="tglKunjungan"
+                      class="form-control form-control-modern"
+                    />
+                    <div class="pesan-error" id="err-tglKunjungan"></div>
+                  </div>
+
+                </div>
               </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="jk"
-                  id="jk-p"
-                  value="Perempuan"
-                  data-field="jk"
-                /><label class="form-check-label" for="jk-p">Perempuan</label>
+
+              <!-- === BAGIAN 4: KELUHAN === -->
+              <div class="form-section">
+                <div class="form-section-header">
+                  <div class="form-section-num">4</div>
+                  <div>
+                    <h2 class="form-section-title">Keluhan & Persetujuan</h2>
+                    <p class="form-section-desc">Deskripsikan keluhan Anda agar dokter dapat mempersiapkan pemeriksaan</p>
+                  </div>
+                </div>
+                <div class="form-section-body">
+
+                  <div class="mb-4">
+                    <label for="keluhan" class="form-label">
+                      <span class="label-icon">📋</span> Keluhan Utama <span class="wajib">*</span>
+                    </label>
+                    <textarea
+                      id="keluhan"
+                      data-field="keluhan"
+                      class="form-control form-control-modern"
+                      rows="4"
+                      placeholder="Contoh: Sakit kepala dan demam sejak 2 hari yang lalu..."
+                    ></textarea>
+                    <div class="d-flex justify-content-between align-items-center mt-1">
+                      <div class="pesan-error" id="err-keluhan"></div>
+                      <small id="hitung-keluhan" class="text-muted char-counter">0 / 200</small>
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="persetujuan-box" for="setuju">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="setuju"
+                        data-field="setuju"
+                      />
+                      <span class="persetujuan-teks">
+                        Saya menyetujui data di atas digunakan untuk keperluan pendaftaran dan pelayanan medis di Klinik Pratama Sehat Nusantara.
+                      </span>
+                    </label>
+                    <div class="pesan-error" id="err-setuju"></div>
+                  </div>
+
+                </div>
               </div>
-              <div class="pesan-error" id="err-jk"></div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="hp" class="form-label">Nomor HP</label
-                ><input
-                  type="tel"
-                  id="hp"
-                  data-field="hp"
-                  class="form-control"
-                  inputmode="numeric"
-                  placeholder="08xxxxxxxxxx"
-                />
-                <div class="pesan-error" id="err-hp"></div>
+
+              <!-- Tombol Submit -->
+              <div class="form-submit-area">
+                <p class="form-submit-note"><span class="wajib">*</span> Kolom wajib diisi</p>
+                <button type="submit" class="btn btn-daftar">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  Daftar Sekarang
+                </button>
               </div>
-              <div class="col-md-6 mb-3">
-                <label for="email" class="form-label">Email (opsional)</label
-                ><input
-                  type="email"
-                  id="email"
-                  data-field="email"
-                  class="form-control"
-                />
-                <div class="pesan-error" id="err-email"></div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="poli" class="form-label">Poliklinik</label
-                ><select id="poli" data-field="poli" class="form-select">
-                  <option value="">-- Pilih poliklinik --</option>
-                  <option value="Umum">Umum</option>
-                  <option value="Gigi">Gigi</option>
-                  <option value="KIA">KIA</option>
-                  <option value="Gizi">Gizi</option>
-                </select>
-                <div class="pesan-error" id="err-poli"></div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="dokter" class="form-label">Dokter</label
-                ><select
-                  id="dokter"
-                  data-field="dokter"
-                  class="form-select"
-                  disabled
-                >
-                  <option value="">Pilih poliklinik dulu</option>
-                </select>
-                <div class="pesan-error" id="err-dokter"></div>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="tglKunjungan" class="form-label"
-                >Tanggal kunjungan</label
-              ><input
-                type="date"
-                id="tglKunjungan"
-                data-field="tglKunjungan"
-                class="form-control"
-              />
-              <div class="pesan-error" id="err-tglKunjungan"></div>
-            </div>
-            <div class="mb-3">
-              <label for="keluhan" class="form-label">Keluhan</label
-              ><textarea
-                id="keluhan"
-                data-field="keluhan"
-                class="form-control"
-                rows="4"
-              ></textarea>
-              <div class="d-flex justify-content-between">
-                <div class="pesan-error" id="err-keluhan"></div>
-                <small id="hitung-keluhan" class="text-muted">0 / 200</small>
-              </div>
-            </div>
-            <div class="mb-3">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="setuju"
-                  data-field="setuju"
-                /><label class="form-check-label" for="setuju"
-                  >Saya setuju datanya digunakan untuk keperluan
-                  pendaftaran.</label
-                >
-              </div>
-              <div class="pesan-error" id="err-setuju"></div>
-            </div>
-            <button type="submit" class="btn btn-hijau btn-lg">
-              Daftar sekarang
-            </button>
-          </form>
+
+            </form>
+          </div>
         </div>
       </section>
     </main>
+
+    <!-- Modal Hasil Pendaftaran -->
     <div
       class="modal fade"
       id="modal-ringkasan"
@@ -252,30 +388,42 @@
       aria-labelledby="judul-modal"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2 class="modal-title h5" id="judul-modal">
-              Pendaftaran berhasil
-            </h2>
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content modal-modern">
+          <div class="modal-header modal-header-modern">
+            <div class="modal-header-content">
+              <div class="modal-sukses-icon" aria-hidden="true">✅</div>
+              <div>
+                <h2 class="modal-title h5" id="judul-modal">Pendaftaran Berhasil!</h2>
+                <p class="modal-subtitle">Simpan nomor antrean Anda berikut ini</p>
+              </div>
+            </div>
             <button
               type="button"
-              class="btn-close"
+              class="btn-close btn-close-modern"
               data-bs-dismiss="modal"
               aria-label="Tutup"
             ></button>
           </div>
-          <div class="modal-body">
-            <p class="text-center mb-1">Nomor antrean Anda (simulasi)</p>
-            <p class="nomor-antrean" id="nomor-antrean"></p>
-            <dl class="row" id="isi-ringkasan"></dl>
+          <div class="modal-body modal-body-modern">
+            <div class="antrean-box">
+              <p class="antrean-label">Nomor Antrean Anda</p>
+              <p class="nomor-antrean" id="nomor-antrean"></p>
+              <p class="antrean-note">Harap datang 15 menit sebelum jadwal</p>
+            </div>
+            <div class="ringkasan-wrapper">
+              <h3 class="ringkasan-judul">Ringkasan Pendaftaran</h3>
+              <dl class="row ringkasan-dl" id="isi-ringkasan"></dl>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-biru" id="btn-cetak">
-              Cetak ringkasan</button
-            ><button
+          <div class="modal-footer modal-footer-modern">
+            <button type="button" class="btn btn-cetak-modern" id="btn-cetak">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              Cetak Ringkasan
+            </button>
+            <button
               type="button"
-              class="btn btn-hijau"
+              class="btn btn-selesai-modern"
               data-bs-dismiss="modal"
             >
               Selesai
@@ -284,6 +432,7 @@
         </div>
       </div>
     </div>
+
     <footer class="site-footer">
       <div class="container">
         <div class="row g-4">

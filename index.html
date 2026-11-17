@@ -6,7 +6,7 @@
     <title>Beranda | Klinik Pratama Sehat Nusantara</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -22,18 +22,29 @@
     </script>
   </head>
   <body>
+
+    <!-- ===== HEADER / NAVBAR ===== -->
     <header class="site-header">
       <nav class="navbar navbar-expand-md" aria-label="Navigasi utama">
         <div class="container">
-          <a class="navbar-brand" href="index.html"
-            ><img
-              src="img/logo.svg"
-              alt="Logo Klinik Sehat Nusantara"
-              width="36"
-              height="36"
-            />
-            Sehat Nusantara</a
-          >
+
+          <!-- Brand -->
+          <a class="navbar-brand" href="index.html">
+            <div class="navbar-brand-logo">
+              <img
+                src="img/logo.svg"
+                alt="Logo Klinik Sehat Nusantara"
+                width="28"
+                height="28"
+              />
+            </div>
+            <div class="navbar-brand-text">
+              <span class="brand-name">Sehat Nusantara</span>
+              <span class="brand-sub">Klinik Pratama</span>
+            </div>
+          </a>
+
+          <!-- Toggler mobile -->
           <button
             class="navbar-toggler"
             type="button"
@@ -45,53 +56,104 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
+
+          <!-- Nav links -->
           <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="index.html">Beranda</a>
+                <a class="nav-link active" href="index.html">
+                  <span>Beranda</span>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="layanan.html">Layanan</a>
+                <a class="nav-link" href="layanan.html">
+                  <span>Layanan</span>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="dokter.html">Jadwal Dokter</a>
+                <a class="nav-link" href="dokter.html">
+                  <span>Jadwal Dokter</span>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="pendaftaran.html">Pendaftaran</a>
+                <a class="nav-link" href="pendaftaran.html">
+                  <span>Pendaftaran</span>
+                </a>
               </li>
             </ul>
-            <button
-              id="btn-tema"
-              type="button"
-              class="btn-tema ms-md-3 my-2 my-md-0"
-              aria-pressed="false"
-            >
-              🌙 Gelap
-            </button>
+
+            <!-- Kanan: dark mode + tombol daftar -->
+            <div class="navbar-actions">
+              <button
+                id="btn-tema"
+                type="button"
+                class="btn-tema"
+                aria-pressed="false"
+              >
+                🌙 Gelap
+              </button>
+              <a href="pendaftaran.html" class="btn-daftar-nav">
+                Daftar Online
+              </a>
+            </div>
           </div>
+
         </div>
       </nav>
     </header>
+
     <main>
+      <!-- ===== HERO ===== -->
       <section class="hero">
         <div class="container">
-          <p id="sapaan" class="sapaan">Selamat datang</p>
-          <h1>Berobat lebih tenang, daftar dari rumah</h1>
-          <p class="lead">
-            Klinik rawat jalan di Kota Kediri dengan empat poliklinik. Lihat
-            jadwal dokter dan ambil nomor antrean tanpa datang pagi-pagi.
-          </p>
-          <a class="btn btn-hijau btn-lg" href="pendaftaran.html"
-            >Daftar online</a
-          >
-          <a class="btn btn-outline-light btn-lg" href="dokter.html"
-            >Lihat jadwal dokter</a
-          >
+          <div class="hero-inner">
+            <div class="hero-content">
+              <p id="sapaan" class="sapaan">Selamat datang</p>
+              <h1>Berobat lebih tenang,<br>daftar dari rumah</h1>
+              <p class="lead">
+                Klinik rawat jalan di Kota Kediri dengan empat poliklinik. Lihat
+                jadwal dokter dan ambil nomor antrean tanpa datang pagi-pagi.
+              </p>
+              <div class="hero-actions">
+                <a class="btn btn-hijau btn-lg" href="pendaftaran.html">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M12 11v6M9 14h6"/></svg>
+                  Daftar Online
+                </a>
+                <a class="btn btn-outline-light btn-lg" href="dokter.html">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  Lihat Jadwal Dokter
+                </a>
+              </div>
+            </div>
+            <!-- Kartu info kanan -->
+            <div class="hero-stats" aria-hidden="true">
+              <div class="stat-card">
+                <span class="stat-num">4</span>
+                <span class="stat-label">Poliklinik</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-num">12</span>
+                <span class="stat-label">Tenaga Medis</span>
+              </div>
+              <div class="stat-card stat-card-wide">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div>
+                  <span class="stat-label">Buka Senin–Jumat</span>
+                  <span class="stat-num-sm">07.30 – 17.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
+
+      <!-- ===== POLIKLINIK ===== -->
       <section class="bagian">
         <div class="container">
-          <h2>Empat poliklinik</h2>
+          <div class="section-heading">
+            <h2>Empat Poliklinik</h2>
+            <p class="section-sub">Layanan kesehatan lengkap untuk seluruh keluarga Anda</p>
+          </div>
           <div class="row g-3">
             <div class="col-6 col-lg-3">
               <div class="card kartu-poli h-100">
@@ -103,9 +165,7 @@
                 <div class="card-body">
                   <h3 class="h5">Umum</h3>
                   <p class="small">Pemeriksaan dan pengobatan penyakit umum.</p>
-                  <a href="layanan.html" class="stretched-link small"
-                    >Selengkapnya</a
-                  >
+                  <a href="layanan.html" class="stretched-link small">Selengkapnya →</a>
                 </div>
               </div>
             </div>
@@ -119,9 +179,7 @@
                 <div class="card-body">
                   <h3 class="h5">Gigi</h3>
                   <p class="small">Perawatan kesehatan gigi dan mulut.</p>
-                  <a href="layanan.html" class="stretched-link small"
-                    >Selengkapnya</a
-                  >
+                  <a href="layanan.html" class="stretched-link small">Selengkapnya →</a>
                 </div>
               </div>
             </div>
@@ -134,12 +192,8 @@
                 />
                 <div class="card-body">
                   <h3 class="h5">KIA</h3>
-                  <p class="small">
-                    Layanan kesehatan ibu hamil, bayi, dan anak.
-                  </p>
-                  <a href="layanan.html" class="stretched-link small"
-                    >Selengkapnya</a
-                  >
+                  <p class="small">Layanan kesehatan ibu hamil, bayi, dan anak.</p>
+                  <a href="layanan.html" class="stretched-link small">Selengkapnya →</a>
                 </div>
               </div>
             </div>
@@ -153,109 +207,170 @@
                 <div class="card-body">
                   <h3 class="h5">Gizi</h3>
                   <p class="small">Konsultasi gizi dan pola makan sehat.</p>
-                  <a href="layanan.html" class="stretched-link small"
-                    >Selengkapnya</a
-                  >
+                  <a href="layanan.html" class="stretched-link small">Selengkapnya →</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <!-- ===== KEUNGGULAN ===== -->
       <section class="bagian bg-muda">
         <div class="container">
-          <h2>Mengapa Sehat Nusantara</h2>
+          <div class="section-heading">
+            <h2>Mengapa Sehat Nusantara?</h2>
+            <p class="section-sub">Kami hadir untuk memudahkan akses kesehatan Anda</p>
+          </div>
           <div class="row g-3">
             <div class="col-md-4">
-              <h3 class="h5">Daftar tanpa antre di loket</h3>
-              <p>
-                Isi formulir di ponsel dan dapatkan nomor antrean sebelum
-                berangkat.
-              </p>
+              <div class="keunggulan-card">
+                <div class="keunggulan-icon" aria-hidden="true">📋</div>
+                <h3 class="h5">Daftar tanpa antre di loket</h3>
+                <p>Isi formulir di ponsel dan dapatkan nomor antrean sebelum berangkat.</p>
+              </div>
             </div>
             <div class="col-md-4">
-              <h3 class="h5">Jadwal dokter jelas</h3>
-              <p>
-                Hari dan jam praktik tiap dokter bisa dicek kapan saja, jadi
-                tidak datang sia-sia.
-              </p>
+              <div class="keunggulan-card">
+                <div class="keunggulan-icon" aria-hidden="true">📅</div>
+                <h3 class="h5">Jadwal dokter jelas</h3>
+                <p>Hari dan jam praktik tiap dokter bisa dicek kapan saja, jadi tidak datang sia-sia.</p>
+              </div>
             </div>
             <div class="col-md-4">
-              <h3 class="h5">Data pasien lebih akurat</h3>
-              <p>
-                Formulir memeriksa NIK dan nomor HP agar petugas mudah
-                menghubungi Anda.
-              </p>
+              <div class="keunggulan-card">
+                <div class="keunggulan-icon" aria-hidden="true">✅</div>
+                <h3 class="h5">Data pasien lebih akurat</h3>
+                <p>Formulir memeriksa NIK dan nomor HP agar petugas mudah menghubungi Anda.</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      <!-- ===== JAM OPERASIONAL ===== -->
       <section class="bagian">
         <div class="container">
-          <h2>Jam operasional</h2>
-          <div class="table-responsive">
-            <table class="table table-sm tabel-jam">
-              <thead>
-                <tr>
-                  <th scope="col">Hari</th>
-                  <th scope="col">Jam</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Senin - Jumat</td>
-                  <td>07.30 - 17.00</td>
-                </tr>
-                <tr>
-                  <td>Sabtu</td>
-                  <td>07.30 - 12.00</td>
-                </tr>
-                <tr>
-                  <td>Minggu dan hari libur</td>
-                  <td>Tutup</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="section-heading">
+            <h2>Jam Operasional</h2>
+            <p class="section-sub">Kami siap melayani Anda setiap hari kerja</p>
+          </div>
+          <div class="jam-wrapper">
+            <div class="table-responsive">
+              <table class="table table-sm tabel-jam">
+                <thead>
+                  <tr>
+                    <th scope="col">Hari</th>
+                    <th scope="col">Jam</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Senin – Jumat</td>
+                    <td><span class="jam-buka">07.30 – 17.00</span></td>
+                  </tr>
+                  <tr>
+                    <td>Sabtu</td>
+                    <td><span class="jam-buka">07.30 – 12.00</span></td>
+                  </tr>
+                  <tr>
+                    <td>Minggu &amp; hari libur</td>
+                    <td><span class="jam-tutup">Tutup</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="jam-cta">
+              <p>Ingin berobat? Daftar terlebih dahulu secara online.</p>
+              <a href="pendaftaran.html" class="btn btn-hijau">Daftar Sekarang</a>
+            </div>
           </div>
         </div>
       </section>
     </main>
+
+    <!-- ===== FOOTER ===== -->
     <footer class="site-footer">
-      <div class="container">
-        <div class="row g-4">
-          <div class="col-md-5">
-            <h2 class="h5">Klinik Pratama Sehat Nusantara</h2>
-            <p>
-              Klinik rawat jalan fiktif untuk keperluan tugas kuliah. Seluruh
-              data bersifat simulasi.
-            </p>
-          </div>
-          <div class="col-md-4">
-            <h2 class="h5">Kontak</h2>
-            <ul class="list-unstyled">
-              <li>Jl. Contoh Sehat No. 12, Kota Kediri</li>
-              <li>Telepon: (0354) 000-000</li>
-              <li>Email: info@sehatnusantara.example</li>
-            </ul>
-          </div>
-          <div class="col-md-3">
-            <h2 class="h5">Menu</h2>
-            <ul class="list-unstyled">
-              <li><a href="index.html">Beranda</a></li>
-              <li><a href="layanan.html">Layanan</a></li>
-              <li><a href="dokter.html">Jadwal Dokter</a></li>
-              <li><a href="pendaftaran.html">Pendaftaran</a></li>
-            </ul>
+      <div class="footer-top">
+        <div class="container">
+          <div class="row g-4 g-lg-5">
+
+            <!-- Kolom 1: Identitas -->
+            <div class="col-md-5 col-lg-4">
+              <div class="footer-brand">
+                <img src="img/logo.svg" alt="Logo Sehat Nusantara" width="36" height="36" />
+                <div>
+                  <span class="footer-brand-name">Sehat Nusantara</span>
+                  <span class="footer-brand-tag">Klinik Pratama</span>
+                </div>
+              </div>
+              <p class="footer-desc">
+                Klinik rawat jalan di Kota Kediri. Prototipe front-end untuk keperluan tugas kuliah — seluruh data bersifat simulasi.
+              </p>
+              <div class="footer-badges">
+                <span class="footer-badge">✦ Rawat Jalan</span>
+                <span class="footer-badge">✦ 4 Poliklinik</span>
+              </div>
+            </div>
+
+            <!-- Kolom 2: Navigasi -->
+            <div class="col-6 col-md-3 col-lg-2 offset-lg-1">
+              <h2 class="footer-heading">Navigasi</h2>
+              <ul class="footer-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="layanan.html">Layanan</a></li>
+                <li><a href="dokter.html">Jadwal Dokter</a></li>
+                <li><a href="pendaftaran.html">Pendaftaran</a></li>
+              </ul>
+            </div>
+
+            <!-- Kolom 3: Kontak -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <h2 class="footer-heading">Hubungi Kami</h2>
+              <ul class="footer-contact">
+                <li>
+                  <span class="fc-icon" aria-hidden="true">📍</span>
+                  <span>Jl. Contoh Sehat No. 12,<br>Kota Kediri, Jawa Timur</span>
+                </li>
+                <li>
+                  <span class="fc-icon" aria-hidden="true">📞</span>
+                  <span>(0354) 000-000</span>
+                </li>
+                <li>
+                  <span class="fc-icon" aria-hidden="true">✉️</span>
+                  <span>info@sehatnusantara.example</span>
+                </li>
+                <li>
+                  <span class="fc-icon" aria-hidden="true">🕐</span>
+                  <span>Sen–Jum: 07.30–17.00<br>Sabtu: 07.30–12.00</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Kolom 4: CTA -->
+            <div class="col-md-12 col-lg-2">
+              <h2 class="footer-heading">Daftarkan Diri</h2>
+              <p class="footer-cta-desc">Ambil nomor antrean dari rumah sebelum berangkat.</p>
+              <a href="pendaftaran.html" class="btn-footer-daftar">Daftar Online →</a>
+            </div>
+
           </div>
         </div>
-        <p class="copy">&copy; 2026 Klinik Sehat Nusantara.</p>
+      </div>
+
+      <!-- Footer bottom bar -->
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="footer-bottom-inner">
+            <p class="copy">&copy; 2026 Klinik Pratama Sehat Nusantara. Prototipe front-end, tanpa backend dan database.</p>
+            <p class="footer-credit">Dibuat untuk keperluan tugas kuliah</p>
+          </div>
+        </div>
       </div>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>
 
-<!-- unp anjay -->
-<!-- rizal kunjang main git hub -->
- 
