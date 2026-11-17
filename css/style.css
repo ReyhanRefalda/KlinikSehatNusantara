@@ -30,6 +30,12 @@
   --footer-bottom-bg: #041812;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Figtree", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--teks);
@@ -37,6 +43,26 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+li,
+dt,
+dd {
+  overflow-wrap: break-word;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -233,7 +259,61 @@ a:hover {
   transform: translateY(-1px);
 }
 
-/* Mobile Navbar */
+/* ==========================================================================
+   NAVBAR RESPONSIVE (Tablet, Mobile & Small Devices)
+   ========================================================================== */
+
+/* Tablet Landscape / Small Laptop (992px - 1024px) */
+@media (min-width: 992px) and (max-width: 1024.98px) {
+  .navbar .nav-link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+  .navbar-actions {
+    gap: 0.5rem;
+  }
+}
+
+/* Tablet Portrait (768px - 991.98px) - Mencegah tabrakan & wrap navbar pada iPad */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .site-header .navbar {
+    padding: 0.55rem 0;
+  }
+  .navbar-brand {
+    gap: 0.5rem;
+  }
+  .navbar-brand-logo {
+    width: 34px;
+    height: 34px;
+    padding: 6px;
+  }
+  .brand-name {
+    font-size: 0.92rem;
+  }
+  .brand-sub {
+    font-size: 0.64rem;
+  }
+  .navbar-nav {
+    gap: 0.12rem;
+  }
+  .navbar .nav-link {
+    padding: 0.42rem 0.5rem;
+    font-size: 0.84rem;
+  }
+  .navbar-actions {
+    gap: 0.4rem;
+  }
+  .btn-tema {
+    padding: 0.32rem 0.6rem;
+    font-size: 0.78rem;
+  }
+  .btn-daftar-nav {
+    padding: 0.38rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile Navbar (< 768px) */
 @media (max-width: 767.98px) {
   .site-header .navbar {
     padding: 0.5rem 0;
@@ -241,19 +321,20 @@ a:hover {
   .navbar-collapse {
     background: var(--card-bg);
     border-radius: 14px;
-    padding: 1rem 1.1rem;
+    padding: 1rem 1.15rem;
     margin-top: 0.75rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
     border: 1px solid var(--border-halus);
   }
   .navbar-nav {
     margin: 0;
-    gap: 0.25rem;
+    gap: 0.3rem;
     width: 100%;
     align-items: stretch;
   }
   .navbar .nav-link {
-    padding: 0.65rem 0.85rem;
+    padding: 0.65rem 0.95rem;
+    font-size: 0.95rem;
   }
   .navbar .nav-link span::after {
     display: none;
@@ -267,11 +348,63 @@ a:hover {
     padding-top: 0.85rem;
     border-top: 1px solid var(--border-halus);
     display: flex;
-    justify-content: space-between;
+    gap: 0.65rem;
     width: 100%;
+    flex-wrap: wrap;
+  }
+  .btn-tema {
+    padding: 0.48rem 0.95rem;
+    font-size: 0.88rem;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
   .btn-daftar-nav {
     flex-grow: 1;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0.48rem 1.15rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile Kecil (<= 480px) */
+@media (max-width: 480px) {
+  .site-header .navbar {
+    padding: 0.45rem 0;
+  }
+  .navbar-brand {
+    gap: 0.55rem;
+  }
+  .navbar-brand-logo {
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    border-radius: 8px;
+  }
+  .brand-name {
+    font-size: 0.95rem;
+  }
+  .brand-sub {
+    font-size: 0.66rem;
+  }
+  .navbar-toggler {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.92rem;
+    border-radius: 8px;
+  }
+}
+
+/* Layar Ekstra Kecil (<= 360px) */
+@media (max-width: 360px) {
+  .navbar-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .btn-tema,
+  .btn-daftar-nav {
+    width: 100%;
     justify-content: center;
   }
 }
@@ -455,28 +588,170 @@ a:hover {
   font-weight: 500;
 }
 
-@media (max-width: 991.98px) {
-  .hero-stats {
-    display: none;
-  }
+/* ==========================================================================
+   HERO RESPONSIVE (Tablet, Mobile & Small Devices)
+   ========================================================================== */
+
+/* Tablet (768px - 1024.98px) */
+@media (min-width: 768px) and (max-width: 1024.98px) {
   .hero {
-    padding: 3.8rem 0 3.2rem;
+    padding: 3.5rem 0 3rem;
+  }
+  .hero-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2rem;
+  }
+  .hero-content {
+    max-width: 100%;
   }
   .hero-title {
-    font-size: 2.2rem;
+    font-size: clamp(2.1rem, 3.8vw, 2.5rem);
+  }
+  .hero .lead {
+    max-width: 100%;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.3fr;
+    gap: 1rem;
+    width: 100%;
+    min-width: 0;
+  }
+  .stat-card {
+    padding: 1rem 1.1rem;
+  }
+  .stat-card-wide {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    align-items: center;
   }
 }
-@media (max-width: 575.98px) {
+
+/* Mobile Besar (481px - 767.98px) */
+@media (min-width: 481px) and (max-width: 767.98px) {
   .hero {
-    padding: 3rem 0 2.5rem;
+    padding: 2.8rem 0 2.25rem;
+  }
+  .hero-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.75rem;
+  }
+  .hero-content {
+    max-width: 100%;
+  }
+  .hero-badge {
+    margin-bottom: 1rem;
   }
   .hero-title {
-    font-size: 1.85rem;
+    font-size: clamp(1.85rem, 5vw, 2.2rem);
+    margin-bottom: 0.85rem;
   }
-  .hero-actions .btn-hero-primary,
-  .hero-actions .btn-hero-secondary {
+  .hero .lead {
+    font-size: 0.98rem;
+    margin-bottom: 1.5rem;
+    max-width: 100%;
+  }
+  .hero-actions {
+    gap: 0.75rem;
+  }
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    flex: 1 1 200px;
+    justify-content: center;
+    min-height: 44px;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    width: 100%;
+    min-width: 0;
+  }
+  .stat-card {
+    padding: 0.95rem 1rem;
+  }
+  .stat-card-wide {
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+  }
+}
+
+/* Mobile Kecil (<= 480px) */
+@media (max-width: 480px) {
+  .hero {
+    padding: 2.2rem 0 1.85rem;
+  }
+  .hero-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+  .hero-content {
+    max-width: 100%;
+  }
+  .hero-badge {
+    padding: 0.28rem 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+  .sapaan {
+    font-size: 0.78rem;
+  }
+  .hero-title {
+    font-size: clamp(1.5rem, 6.5vw, 1.85rem);
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+  .hero .lead {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+    max-width: 100%;
+  }
+  .hero-actions {
+    flex-direction: column;
+    gap: 0.65rem;
+    width: 100%;
+  }
+  .btn-hero-primary,
+  .btn-hero-secondary {
     width: 100%;
     justify-content: center;
+    min-height: 44px;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.92rem;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    width: 100%;
+    min-width: 0;
+  }
+  .stat-card {
+    padding: 0.75rem 0.65rem;
+    border-radius: 10px;
+  }
+  .stat-num {
+    font-size: 1.6rem;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+  }
+  .stat-card-wide {
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    padding: 0.75rem 0.95rem;
+    gap: 0.65rem;
+  }
+  .stat-num-sm {
+    font-size: 0.88rem;
   }
 }
 
@@ -493,13 +768,16 @@ a:hover {
 .section-heading {
   margin-bottom: 2.2rem;
 }
+.section-heading h1,
 .section-heading h2 {
-  font-size: 1.85rem;
+  font-size: clamp(1.45rem, 3.5vw, 1.85rem);
+  line-height: 1.25;
   margin-bottom: 0.35rem;
 }
 .section-sub {
   color: var(--teks-muted);
-  font-size: 1rem;
+  font-size: clamp(0.88rem, 2vw, 1rem);
+  line-height: 1.5;
   margin: 0;
 }
 
@@ -516,6 +794,12 @@ a:hover {
   transform: translateY(-3px);
   border-color: var(--hijau);
   box-shadow: var(--card-shadow-hover);
+}
+.kartu-poli .card-img-top {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 400 / 220;
+  object-fit: cover;
 }
 .kartu-poli .card-body {
   padding: 1.35rem;
@@ -553,6 +837,69 @@ a:hover {
   color: var(--teks-muted);
   margin: 0;
   line-height: 1.55;
+}
+
+/* Penyesuaian Responsif Sections & Cards */
+@media (max-width: 1024.98px) {
+  .bagian {
+    padding: 3.25rem 0;
+  }
+}
+@media (max-width: 767.98px) {
+  .bagian {
+    padding: 2.5rem 0;
+  }
+  .section-heading {
+    margin-bottom: 1.6rem;
+  }
+  .kartu-poli .card-body {
+    padding: 1.15rem 1rem;
+  }
+  .kartu-poli h3,
+  .kartu-poli h2 {
+    font-size: 1.1rem;
+  }
+  .keunggulan-card {
+    padding: 1.35rem 1.25rem;
+  }
+}
+@media (max-width: 480px) {
+  .bagian {
+    padding: 2rem 0;
+  }
+  .section-heading {
+    margin-bottom: 1.35rem;
+  }
+  .kartu-poli .card-body {
+    padding: 1rem 0.85rem;
+  }
+  .kartu-poli h3,
+  .kartu-poli h2 {
+    font-size: 1.05rem;
+  }
+  .kartu-poli p.small {
+    font-size: 0.84rem;
+  }
+  .keunggulan-card {
+    padding: 1.2rem 1.1rem;
+    border-radius: 12px;
+  }
+  .keunggulan-icon {
+    font-size: 1.65rem;
+    margin-bottom: 0.65rem;
+  }
+  .keunggulan-card h3 {
+    font-size: 1rem;
+  }
+  .keunggulan-card p {
+    font-size: 0.88rem;
+  }
+}
+@media (max-width: 420px) {
+  /* Pada smartphone layar kecil, susun poliklinik 1 kolom penuh agar isi kartu leluasa */
+  .bagian .row.g-4 > .col-6 {
+    width: 100%;
+  }
 }
 
 /* Jam Operasional */
@@ -615,6 +962,70 @@ a:hover {
   margin: 0;
 }
 
+/* Jam Operasional Responsive */
+@media (min-width: 992px) {
+  .jam-wrapper {
+    flex-wrap: nowrap;
+  }
+  .jam-wrapper > .table-responsive {
+    flex: 0 1 480px;
+    max-width: 480px;
+    width: auto;
+  }
+  .jam-cta {
+    flex: 1;
+  }
+}
+@media (max-width: 991.98px) {
+  .jam-wrapper {
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+  }
+  .jam-wrapper > .table-responsive {
+    width: 100%;
+    max-width: 100%;
+  }
+  .tabel-jam {
+    max-width: 100%;
+    width: 100%;
+  }
+  .jam-cta {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .tabel-jam th,
+  .tabel-jam td {
+    padding: 0.75rem 0.85rem;
+    font-size: 0.88rem;
+  }
+  .jam-buka,
+  .jam-tutup {
+    font-size: 0.8rem;
+    padding: 0.18rem 0.5rem;
+    white-space: nowrap;
+  }
+  .jam-cta {
+    padding: 1.25rem 1.15rem;
+    border-radius: 12px;
+  }
+  .jam-cta h3 {
+    font-size: 1rem;
+  }
+  .jam-cta p {
+    font-size: 0.88rem;
+  }
+  .jam-cta .btn-hijau {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
 /* Dokter Card */
 .kartu-dokter {
   display: flex;
@@ -631,6 +1042,10 @@ a:hover {
 .kartu-dokter:hover {
   transform: translateY(-2px);
   border-color: var(--hijau);
+}
+.kartu-dokter > div:not(.avatar) {
+  min-width: 0;
+  flex: 1;
 }
 .avatar {
   width: 52px;
@@ -654,6 +1069,60 @@ a:hover {
   font-size: 0.78rem;
   font-weight: 600;
   display: inline-block;
+}
+
+/* Jadwal Dokter & Wadah Tabel Responsive */
+#wadah-tabel {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+#wadah-tabel table {
+  min-width: 520px;
+  width: 100%;
+}
+@media (max-width: 767.98px) {
+  #wadah-tabel th,
+  #wadah-tabel td {
+    padding: 0.7rem 0.85rem !important;
+    font-size: 0.88rem;
+  }
+  #wadah-tabel td:nth-child(2),
+  #wadah-tabel td:nth-child(3),
+  #wadah-tabel td:nth-child(4) {
+    white-space: nowrap;
+  }
+}
+@media (max-width: 575.98px) {
+  #btn-tabel {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.25rem;
+  }
+}
+@media (max-width: 480px) {
+  .kartu-dokter {
+    padding: 0.95rem 1rem;
+    gap: 0.85rem;
+  }
+  .avatar {
+    width: 46px;
+    height: 46px;
+    font-size: 1.15rem;
+    border-radius: 10px;
+  }
+  .kartu-dokter h2.h6 {
+    font-size: 0.95rem;
+  }
+  .badge-poli {
+    font-size: 0.75rem;
+    padding: 0.18rem 0.55rem;
+  }
+  .kartu-dokter p.small {
+    font-size: 0.82rem;
+  }
 }
 
 /* Tombol Umum */
@@ -731,6 +1200,51 @@ a:hover {
   margin: 0;
   font-size: 0.98rem;
   max-width: 58ch;
+}
+
+/* Hero Pendaftaran Responsive */
+@media (max-width: 1024.98px) {
+  .hero-pendaftaran {
+    padding: 2.75rem 0 2.25rem;
+  }
+}
+@media (max-width: 767.98px) {
+  .hero-pendaftaran {
+    padding: 2.2rem 0 1.85rem;
+  }
+  .hero-pendaftaran-inner {
+    gap: 1rem;
+  }
+  .hero-pendaftaran-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+  }
+  .hero-pendaftaran-judul {
+    font-size: clamp(1.5rem, 5vw, 1.85rem);
+  }
+  .hero-pendaftaran-sub {
+    font-size: 0.92rem;
+  }
+}
+@media (max-width: 575.98px) {
+  .hero-pendaftaran-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+  .hero-pendaftaran-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+  }
+  .hero-pendaftaran-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  .hero-pendaftaran-judul {
+    font-size: clamp(1.4rem, 5.5vw, 1.7rem);
+  }
 }
 
 .bagian-form {
@@ -974,6 +1488,101 @@ a:hover {
   transform: translateY(-2px);
 }
 
+/* Formulir Pendaftaran Responsive */
+@media (max-width: 767.98px) {
+  .bagian-form {
+    padding: 1.75rem 0 3rem;
+  }
+  .form-wrapper {
+    gap: 1rem;
+  }
+  .notif-simulasi {
+    padding: 0.75rem 0.95rem;
+    font-size: 0.85rem;
+    gap: 0.55rem;
+  }
+  .form-section-header {
+    padding: 0.95rem 1.15rem;
+    gap: 0.8rem;
+  }
+  .form-section-num {
+    width: 30px;
+    height: 30px;
+    font-size: 0.86rem;
+  }
+  .form-section-title {
+    font-size: 1rem;
+  }
+  .form-section-desc {
+    font-size: 0.78rem;
+  }
+  .form-section-body {
+    padding: 1.25rem 1.1rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .form-submit-area {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    padding: 1.15rem 1.1rem;
+    gap: 0.85rem;
+  }
+  .btn-daftar {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+  .form-submit-note {
+    text-align: center;
+    width: 100%;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-section-header {
+    padding: 0.85rem 1rem;
+  }
+  .form-section-body {
+    padding: 1.1rem 0.9rem;
+  }
+  .form-label {
+    font-size: 0.88rem;
+    margin-bottom: 0.35rem;
+  }
+  /* font-size 1rem (16px) mencegah iOS Safari zoom-in otomatis saat fokus input */
+  .form-control-modern,
+  .form-select.form-control-modern {
+    font-size: 1rem;
+    padding: 0.6rem 0.85rem;
+    min-height: 44px;
+  }
+  .jk-group {
+    gap: 0.55rem;
+  }
+  .jk-card {
+    padding: 0.75rem 0.5rem;
+    border-radius: 10px;
+    min-height: 44px;
+  }
+  .jk-icon {
+    font-size: 1.25rem;
+  }
+  .jk-text {
+    font-size: 0.84rem;
+  }
+  .persetujuan-box {
+    padding: 0.85rem 0.95rem;
+    gap: 0.65rem;
+  }
+  .persetujuan-teks {
+    font-size: 0.84rem;
+  }
+}
+
 /* Modal Modern */
 .modal-modern {
   border-radius: 20px;
@@ -1114,6 +1723,74 @@ a:hover {
   transform: translateY(-1px);
 }
 
+/* Modal Ringkasan Responsive */
+@media (max-width: 575.98px) {
+  .modal-dialog {
+    margin: 0.5rem;
+  }
+  .modal-modern {
+    border-radius: 16px;
+  }
+  .modal-header-modern {
+    padding: 1.1rem 1.15rem;
+  }
+  .modal-header-content {
+    gap: 0.75rem;
+  }
+  .modal-sukses-icon {
+    font-size: 1.6rem;
+  }
+  .modal-modern .modal-title {
+    font-size: 1.1rem;
+  }
+  .modal-modern .modal-subtitle {
+    font-size: 0.8rem;
+  }
+  .modal-body-modern {
+    padding: 1.15rem 1rem;
+  }
+  .antrean-box {
+    padding: 1.1rem 0.75rem;
+    margin-bottom: 1.25rem;
+    border-radius: 12px;
+  }
+  .antrean-label {
+    font-size: 0.75rem;
+  }
+  .nomor-antrean {
+    font-size: clamp(2.2rem, 8.5vw, 2.75rem);
+  }
+  .antrean-note {
+    font-size: 0.8rem;
+  }
+  .ringkasan-judul {
+    font-size: 0.82rem;
+    margin-bottom: 0.75rem;
+  }
+  .ringkasan-dl dt {
+    margin-top: 0.4rem;
+    margin-bottom: 0.1rem;
+    font-size: 0.82rem;
+  }
+  .ringkasan-dl dd {
+    margin-bottom: 0.45rem;
+    font-size: 0.92rem;
+    word-break: break-word;
+  }
+  .modal-footer-modern {
+    flex-direction: column;
+    padding: 0.95rem 1rem;
+    gap: 0.65rem;
+  }
+  .btn-cetak-modern,
+  .btn-selesai-modern {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
+    font-size: 0.92rem;
+  }
+}
+
 /* ==========================================================================
    FOOTER (Konsisten, Elegan & Mendukung Light & Dark Mode)
    ========================================================================== */
@@ -1237,6 +1914,10 @@ a:hover {
   color: #a4c4b6;
   line-height: 1.5;
 }
+.footer-contact li span {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
 .fc-icon {
   flex-shrink: 0;
   font-size: 1rem;
@@ -1293,11 +1974,75 @@ a:hover {
   margin: 0;
 }
 
+/* Footer Responsive (Tablet, Mobile & Small Devices) */
+@media (max-width: 1024.98px) {
+  .footer-top {
+    padding: 3.25rem 0 2.25rem;
+  }
+}
+
 @media (max-width: 767.98px) {
+  .footer-top {
+    padding: 2.5rem 0 1.85rem;
+  }
+  .footer-brand {
+    margin-bottom: 0.9rem;
+  }
+  .footer-desc {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .footer-badges {
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .footer-badge {
+    font-size: 0.72rem;
+    padding: 0.22rem 0.6rem;
+  }
+  .footer-heading {
+    font-size: 0.8rem;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.4rem;
+  }
+  .footer-links {
+    gap: 0.5rem;
+  }
+  .footer-links a {
+    font-size: 0.88rem;
+    padding: 0.25rem 0;
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+  }
+  .footer-contact {
+    gap: 0.75rem;
+  }
+  .footer-contact li {
+    font-size: 0.85rem;
+    gap: 0.55rem;
+  }
   .footer-bottom-inner {
     flex-direction: column;
     text-align: center;
     gap: 0.35rem;
+  }
+  .copy,
+  .footer-credit {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  /* Mencegah overflow teks email/alamat pada footer kontak */
+  .site-footer .col-6 {
+    width: 100%;
+  }
+  .btn-footer-daftar {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    min-height: 44px;
   }
 }
 
@@ -1348,8 +2093,15 @@ a:hover {
 [data-bs-theme="dark"] .navbar .nav-link:hover {
   color: #34c78a;
 }
+[data-bs-theme="dark"] .navbar-collapse {
+  background: var(--card-bg);
+  border-color: var(--border-halus);
+}
 [data-bs-theme="dark"] .navbar-toggler-icon {
   filter: invert(1);
+}
+[data-bs-theme="dark"] .text-dark {
+  color: #e4eee8 !important;
 }
 
 /* Card & Background di Dark Mode */
