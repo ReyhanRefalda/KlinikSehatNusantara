@@ -382,6 +382,38 @@ a:hover {
     align-items: center;
     justify-content: space-between;
   }
+  /* Tombol Hamburger Toggler - Kontras Jelas & Proporsional */
+  .navbar-toggler {
+    padding: 0.42rem 0.65rem;
+    font-size: 0.95rem;
+    border-radius: 9px;
+    background-color: rgba(26, 143, 96, 0.08);
+    border: 1.5px solid rgba(26, 143, 96, 0.25);
+    color: #124c37;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    cursor: pointer;
+    box-shadow: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .navbar-toggler:hover {
+    background-color: rgba(26, 143, 96, 0.15);
+    border-color: var(--hijau);
+  }
+  .navbar-toggler:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(26, 143, 96, 0.22);
+  }
+  .navbar-toggler:active {
+    transform: scale(0.96);
+  }
+  .navbar-toggler-icon {
+    width: 1.35em;
+    height: 1.35em;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23124c37' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    transition: transform 0.2s ease;
+  }
   .navbar-collapse {
     background: var(--card-bg);
     border-radius: 14px;
@@ -1372,23 +1404,31 @@ a:hover {
   gap: 0.65rem;
 }
 
+/* Jarak vertikal antar-section pada form pendaftaran */
+#form-daftar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .form-section {
   background: var(--card-bg);
   border-radius: 18px;
   box-shadow: var(--card-shadow);
   border: 1px solid var(--border-halus);
   overflow: hidden;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 .form-section:focus-within {
-  box-shadow: 0 6px 22px rgba(26, 143, 96, 0.12);
+  border-color: rgba(26, 143, 96, 0.35);
+  box-shadow: 0 8px 24px rgba(26, 143, 96, 0.12);
 }
 
 .form-section-header {
   display: flex;
   align-items: center;
-  gap: 1.1rem;
-  padding: 1.25rem 1.75rem;
+  gap: 1.15rem;
+  padding: 1.35rem 1.85rem;
   background: rgba(26, 143, 96, 0.04);
   border-bottom: 1px solid var(--border-halus);
 }
@@ -1407,18 +1447,22 @@ a:hover {
   box-shadow: 0 2px 6px rgba(26, 143, 96, 0.3);
 }
 .form-section-title {
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 0.25rem 0;
   color: var(--biru-tua);
 }
 .form-section-desc {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   color: var(--teks-muted);
   margin: 0;
+  line-height: 1.45;
 }
 .form-section-body {
-  padding: 1.85rem 1.75rem;
+  padding: 2rem 1.85rem;
+}
+.form-section-body .mb-4 {
+  margin-bottom: 1.55rem !important;
 }
 
 .form-label {
@@ -1596,14 +1640,17 @@ a:hover {
   .form-wrapper {
     gap: 1.5rem;
   }
+  #form-daftar {
+    gap: 1.6rem;
+  }
   .notif-simulasi {
     padding: 0.75rem 0.95rem;
     font-size: 0.85rem;
     gap: 0.55rem;
   }
   .form-section-header {
-    padding: 0.95rem 1.15rem;
-    gap: 0.8rem;
+    padding: 1.1rem 1.35rem;
+    gap: 0.9rem;
   }
   .form-section-num {
     width: 30px;
@@ -1614,10 +1661,13 @@ a:hover {
     font-size: 1rem;
   }
   .form-section-desc {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
   }
   .form-section-body {
-    padding: 1.25rem 1.1rem;
+    padding: 1.5rem 1.35rem;
+  }
+  .form-section-body .mb-4 {
+    margin-bottom: 1.35rem !important;
   }
 }
 
@@ -1643,15 +1693,21 @@ a:hover {
 }
 
 @media (max-width: 480px) {
+  #form-daftar {
+    gap: 1.35rem;
+  }
   .form-section-header {
-    padding: 0.85rem 1rem;
+    padding: 1rem 1.15rem;
   }
   .form-section-body {
-    padding: 1.1rem 0.9rem;
+    padding: 1.25rem 1rem;
+  }
+  .form-section-body .mb-4 {
+    margin-bottom: 1.15rem !important;
   }
   .form-label {
     font-size: 0.88rem;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.4rem;
   }
   /* font-size 1rem (16px) mencegah iOS Safari zoom-in otomatis saat fokus input */
   .form-control-modern,
@@ -2200,8 +2256,29 @@ a:hover {
     border-color: var(--border-halus);
   }
 }
+/* Toggler Dark Mode - Ikon Terang Elegan, Kontras Tinggi & Selaras Identitas */
+[data-bs-theme="dark"] .navbar-toggler {
+  background-color: rgba(52, 199, 138, 0.12);
+  border: 1.5px solid rgba(52, 199, 138, 0.35);
+  color: #34c78a;
+}
+[data-bs-theme="dark"] .navbar-toggler:hover {
+  background-color: rgba(52, 199, 138, 0.22);
+  border-color: #34c78a;
+}
+[data-bs-theme="dark"] .navbar-toggler:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 199, 138, 0.35);
+}
+[data-bs-theme="dark"] .navbar-toggler:active {
+  transform: scale(0.96);
+}
 [data-bs-theme="dark"] .navbar-toggler-icon {
-  filter: invert(1);
+  filter: none !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%2334c78a' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+[data-bs-theme="dark"] .navbar-toggler:hover .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%234ade80' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 [data-bs-theme="dark"] .btn-tema {
   background: rgba(52, 199, 138, 0.1);
@@ -2333,6 +2410,10 @@ a:hover {
   border-color: var(--merah) !important;
 }
 
+[data-bs-theme="dark"] .form-section:focus-within {
+  border-color: rgba(52, 199, 138, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
 [data-bs-theme="dark"] .form-section-header {
   background: rgba(52, 199, 138, 0.06);
   border-bottom-color: var(--border-halus);
@@ -2381,33 +2462,285 @@ a:hover {
 }
 
 /* ==========================================================================
-   PRINT STYLES
+   PRINT STYLES — STRUK PENDAFTARAN PASIEN (1 HALAMAN, SIMETRIS & PRESISI)
    ========================================================================== */
+
+/* Sembunyikan print-header di tampilan layar biasa */
+.print-struk-header {
+  display: none !important;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 12mm 15mm;
+}
+
 @media print {
-  body * {
-    visibility: hidden;
+  /* ---- Reset semua elemen halaman ---- */
+  html,
+  body {
+    visibility: hidden !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
-  #modal-ringkasan,
-  #modal-ringkasan * {
-    visibility: visible;
-  }
-  #modal-ringkasan {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
-  .modal-footer,
-  .btn-close {
+
+  /* ---- Sembunyikan semua elemen body ---- */
+  body > * {
     display: none !important;
   }
-  #modal-ringkasan .modal-content {
+
+  /* ---- Tampilkan HANYA modal ringkasan ---- */
+  #modal-ringkasan {
+    display: block !important;
+    visibility: visible !important;
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    overflow: visible !important;
     background: #ffffff !important;
-    color: #000000 !important;
-    border: none !important;
+    color: #111827 !important;
+  }
+
+  /* Semua turunan modal-ringkasan visible */
+  #modal-ringkasan * {
+    visibility: visible !important;
+  }
+
+  /* ---- Dialog & Content: simetris, centered, tepat di tengah halaman cetak ---- */
+  #modal-ringkasan .modal-dialog {
+    position: static !important;
+    margin: 0 auto !important;
+    max-width: 170mm !important;
+    width: 100% !important;
+    transform: none !important;
     box-shadow: none !important;
   }
-  .nomor-antrean {
-    color: #000000 !important;
+
+  #modal-ringkasan .modal-content {
+    position: static !important;
+    width: 100% !important;
+    max-width: 170mm !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* ---- SEMBUNYIKAN header notifikasi modal "Pendaftaran Berhasil!" ---- */
+  #modal-ringkasan .modal-header,
+  #modal-ringkasan .modal-header-modern,
+  #modal-ringkasan .modal-header-content,
+  #modal-ringkasan .modal-sukses-icon,
+  #modal-ringkasan #judul-modal,
+  #modal-ringkasan .modal-title,
+  #modal-ringkasan .modal-subtitle,
+  #modal-ringkasan .btn-close,
+  #modal-ringkasan .btn-close-modern {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* ---- SEMBUNYIKAN footer tombol cetak/selesai ---- */
+  #modal-ringkasan .modal-footer,
+  #modal-ringkasan .modal-footer-modern {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* ---- Modal body ---- */
+  #modal-ringkasan .modal-body,
+  #modal-ringkasan .modal-body-modern {
+    padding: 0 !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  /* ---- Header Cetak Struk: Simetris, Rapi, Tepat di Tengah Area Struk ---- */
+  .print-struk-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    visibility: visible !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center !important;
+    margin: 0 auto 5mm auto !important;
+    padding: 0 0 4mm 0 !important;
+    border-bottom: 2px solid #111827 !important;
+    box-sizing: border-box !important;
+  }
+
+  .print-struk-header * {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .print-struk-brand {
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+    font-size: 13.5pt !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+    letter-spacing: 0.02em !important;
+    margin: 0 0 1.5mm 0 !important;
+    text-align: center !important;
+    line-height: 1.3 !important;
+  }
+
+  .print-clinic-address {
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+    font-size: 8.5pt !important;
+    color: #4b5563 !important;
+    margin: 0 0 1.5mm 0 !important;
+    text-align: center !important;
+    line-height: 1.4 !important;
+  }
+
+  .print-struk-divider {
+    display: block !important;
+    visibility: visible !important;
+    width: 48px !important;
+    height: 1.5px !important;
+    background: #111827 !important;
+    margin: 1.5mm auto !important;
+  }
+
+  .print-struk-title {
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+    font-size: 10.5pt !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    color: #111827 !important;
+    margin: 1.5mm 0 0 0 !important;
+    text-align: center !important;
+  }
+
+  /* ---- Kotak nomor antrean ---- */
+  #modal-ringkasan .antrean-box {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 4mm 5mm !important;
+    margin: 0 auto 5mm auto !important;
+    background: #f8fafc !important;
+    border: 1.5px dashed #64748b !important;
+    border-radius: 6px !important;
+    text-align: center !important;
+    color: #111827 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    box-sizing: border-box !important;
+  }
+
+  #modal-ringkasan .antrean-box * {
+    text-align: center !important;
+  }
+
+  #modal-ringkasan .nomor-antrean {
+    font-size: 26pt !important;
+    font-weight: 800 !important;
+    color: #111827 !important;
+    margin: 1mm 0 !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  #modal-ringkasan .antrean-label {
+    font-size: 9pt !important;
+    font-weight: 600 !important;
+    color: #4b5563 !important;
+    margin-bottom: 1mm !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  #modal-ringkasan .antrean-note {
+    font-size: 8pt !important;
+    color: #4b5563 !important;
+    margin: 0 !important;
+  }
+
+  /* ---- Ringkasan data pasien ---- */
+  #modal-ringkasan .ringkasan-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
+  }
+
+  #modal-ringkasan .ringkasan-judul {
+    color: #111827 !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    margin: 0 0 3mm 0 !important;
+    padding-bottom: 1.5mm !important;
+    font-size: 9.5pt !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  #modal-ringkasan .ringkasan-dl {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    overflow: visible !important;
+  }
+
+  #modal-ringkasan .ringkasan-dl dt {
+    color: #4b5563 !important;
+    font-size: 8.5pt !important;
+    font-weight: 600 !important;
+  }
+
+  #modal-ringkasan .ringkasan-dl dd {
+    color: #111827 !important;
+    font-size: 9pt !important;
+    font-weight: 500 !important;
+  }
+
+  #modal-ringkasan .ringkasan-dl > * {
+    margin-top: 0 !important;
+    margin-bottom: 1.5mm !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Sembunyikan backdrop */
+  .modal-backdrop {
+    display: none !important;
   }
 }
