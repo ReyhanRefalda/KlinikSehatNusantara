@@ -1,0 +1,17 @@
+# Format: id|nama|poliklinik|hari|jam|info
+# Poliklinik: Umum / Gigi / KIA / Gizi
+# Baris yang diawali # adalah komentar dan akan diabaikan
+# Contoh format: dr001|dr. Nama Dokter|Umum|Senin|08.00 - 12.00|Dokter umum
+
+dr001|dr. Andi Pratama|Umum|Senin|08.00 - 12.00|Dokter umum
+dr002|dr. Rina Kusuma|Umum|Rabu|13.00 - 17.00|Dokter umum
+dr003|dr. Bayu Santoso|Umum|Jumat|08.00 - 12.00|Dokter umum
+dr004|drg. Maya Anggraini|Gigi|Selasa|08.00 - 12.00|Dokter gigi
+dr005|drg. Hendra Wijaya|Gigi|Kamis|13.00 - 17.00|Dokter gigi
+dr006|drg. Sari Lestari|Gigi|Sabtu|08.00 - 11.00|Dokter gigi
+dr007|dr. Dewi Safitri, Sp.OG|KIA|Senin|13.00 - 16.00|Kehamilan
+dr008|dr. Citra Maharani, Sp.A|KIA|Rabu|08.00 - 12.00|Bayi dan anak
+dr009|Bidan Lia Permata|KIA|Jumat|13.00 - 16.00|Imunisasi
+dr010|Rahma Fitriani, S.Gz|Gizi|Selasa|13.00 - 16.00|Ahli gizi
+dr011|Yoga Prasetyo, S.Gz|Gizi|Kamis|08.00 - 12.00|Ahli gizi
+dr012|Tania Rosalina, S.Gz|Gizi|Sabtu|08.00 - 11.00|Ahli gizi

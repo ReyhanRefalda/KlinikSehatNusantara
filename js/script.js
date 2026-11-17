@@ -1,5 +1,7 @@
-/* ===== DATA SIMULASI (bukan data asli) ===== */
-const dokter = [
+/* ===== DATA DOKTER (dimuat dari data_dokter.txt via API PHP) ===== */
+// Array ini diisi secara dinamis oleh muatDataDokter().
+// Fallback ke data statis hanya jika API tidak tersedia.
+let dokter = [
   { nama: "dr. Andi Pratama", poliklinik: "Umum", hari: "Senin", jam: "08.00 - 12.00", info: "Dokter umum" },
   { nama: "dr. Rina Kusuma", poliklinik: "Umum", hari: "Rabu", jam: "13.00 - 17.00", info: "Dokter umum" },
   { nama: "dr. Bayu Santoso", poliklinik: "Umum", hari: "Jumat", jam: "08.00 - 12.00", info: "Dokter umum" },
@@ -13,6 +15,55 @@ const dokter = [
   { nama: "Yoga Prasetyo, S.Gz", poliklinik: "Gizi", hari: "Kamis", jam: "08.00 - 12.00", info: "Ahli gizi" },
   { nama: "Tania Rosalina, S.Gz", poliklinik: "Gizi", hari: "Sabtu", jam: "08.00 - 11.00", info: "Ahli gizi" }
 ];
+
+/* ===== MUAT DATA DOKTER DARI FILE TXT VIA PHP API ===== */
+/**
+ * Mengambil data dokter dari endpoint api/dokter.php yang membaca data_dokter.txt.
+ * Jika berhasil, mengganti array `dokter` dan memperbarui tampilan halaman.
+ * Jika gagal (misal: file tidak ada / bukan server PHP), tetap gunakan data fallback.
+ */
+function muatDataDokter() {
+  fetch("api/dokter.php")
+    .then(function (res) {
+      if (!res.ok) {
+        throw new Error("HTTP " + res.status + ": " + res.statusText);
+      }
+      return res.json();
+    })
+    .then(function (json) {
+      if (json.status !== "ok" || !Array.isArray(json.dokter) || json.dokter.length === 0) {
+        console.warn("[Dokter] Data dari TXT kosong atau tidak valid, menggunakan data fallback.");
+        return;
+      }
+      // Ganti data dokter global dengan data dari TXT
+      dokter = json.dokter;
+      console.info("[Dokter] Berhasil memuat " + dokter.length + " dokter dari data_dokter.txt.");
+
+      // Perbarui tampilan grid kartu dokter (halaman dokter.html)
+      if (el("daftar-dokter")) {
+        tampilkanDokter(el("filter-poli") ? el("filter-poli").value || "Semua" : "Semua");
+      }
+
+      // Perbarui dropdown dokter pada form pendaftaran jika poli sudah dipilih
+      if (el("poli") && el("dokter") && el("poli").value) {
+        var poli = el("poli").value;
+        var pilihanDokter = el("dokter");
+        pilihanDokter.innerHTML = '<option value="">-- Pilih dokter --</option>';
+        ambilDokterByPoli(poli).forEach(function (d) {
+          var opsi = document.createElement("option");
+          opsi.value = d.nama;
+          opsi.textContent = d.nama + " (" + d.hari + ", " + d.jam + ")";
+          pilihanDokter.appendChild(opsi);
+        });
+      }
+    })
+    .catch(function (err) {
+      console.warn("[Dokter] Gagal memuat dari API, menggunakan data fallback:", err.message);
+    });
+}
+
+// Jalankan saat halaman selesai dimuat
+muatDataDokter();
 const kodePoli = { Umum: "UMUM", Gigi: "GIGI", KIA: "KIA", Gizi: "GIZI" };
 // Nomor antrean terakhir (simulasi), akan bertambah setiap ada pendaftaran
 const antreanTerakhir = { Umum: 6, Gigi: 2, KIA: 4, Gizi: 1 };
@@ -407,6 +458,79 @@ if (el("form-daftar")) {
         el("hitung-keluhan").style.color = n > 200 ? "var(--merah)" : "";
       }
     });
+  }
+
+  /* ===== AUTO CAPITALIZATION: NAMA (Title Case) ===== */
+  /**
+   * Mengubah setiap awal kata menjadi huruf kapital dan huruf selanjutnya menjadi kecil.
+   * Dijalankan real-time saat pengguna mengetik (event: input) dan saat keluar field (event: blur).
+   * Kursor dipertahankan agar tidak melompat ke ujung input saat mengetik.
+   *
+   * Contoh:
+   *   "budi santoso"  → "Budi Santoso"
+   *   "SITI AMINAH"   → "Siti Aminah"
+   *   "andi saputra"  → "Andi Saputra"
+   */
+  function terapkanTitleCase(input) {
+    if (!input) return;
+    input.addEventListener("input", function () {
+      var cursorPos = this.selectionStart;
+      var nilai = this.value;
+      var hasil = nilai.replace(/\S+/g, function (kata) {
+        return kata.charAt(0).toUpperCase() + kata.slice(1).toLowerCase();
+      });
+      if (this.value !== hasil) {
+        this.value = hasil;
+        // Pulihkan posisi kursor agar tidak melompat ke ujung
+        this.setSelectionRange(cursorPos, cursorPos);
+      }
+    });
+    // Pastikan format benar saat keluar dari field
+    input.addEventListener("blur", function () {
+      this.value = this.value.replace(/\S+/g, function (kata) {
+        return kata.charAt(0).toUpperCase() + kata.slice(1).toLowerCase();
+      });
+    });
+  }
+
+  if (el("nama")) {
+    terapkanTitleCase(el("nama"));
+  }
+
+  /* ===== AUTO CAPITALIZATION: KELUHAN (Sentence Case) ===== */
+  /**
+   * Mengubah huruf pertama teks dan huruf pertama setelah tanda titik (.) menjadi kapital.
+   * Tidak mengubah huruf lain — hanya awal kalimat yang terpengaruh.
+   * Kursor dipertahankan agar pengguna tetap bisa mengedit di tengah teks.
+   *
+   * Contoh:
+   *   "sakit gigi geraham"             → "Sakit gigi geraham"
+   *   "demam dan batuk. sakit kepala." → "Demam dan batuk. Sakit kepala."
+   */
+  function terapkanSentenceCase(textarea) {
+    if (!textarea) return;
+    textarea.addEventListener("input", function () {
+      var cursorPos = this.selectionStart;
+      var nilai = this.value;
+      // Kapitalkan: (1) karakter pertama non-spasi di awal teks,
+      // (2) karakter pertama non-spasi setelah ". " atau ".\n"
+      var hasil = nilai.replace(/(^|[.!?]\s+)([a-zA-Z])/g, function (_, pembuka, huruf) {
+        return pembuka + huruf.toUpperCase();
+      });
+      if (this.value !== hasil) {
+        this.value = hasil;
+        this.setSelectionRange(cursorPos, cursorPos);
+      }
+    });
+    textarea.addEventListener("blur", function () {
+      this.value = this.value.replace(/(^|[.!?]\s+)([a-zA-Z])/g, function (_, pembuka, huruf) {
+        return pembuka + huruf.toUpperCase();
+      });
+    });
+  }
+
+  if (el("keluhan")) {
+    terapkanSentenceCase(el("keluhan"));
   }
 
   // Event submit formulir
